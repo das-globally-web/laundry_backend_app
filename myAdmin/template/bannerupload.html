@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Banner{% endblock %}
+{% block content %}
+<!-- Main Content -->
+<div class="">
+    <h2>Upload Banner Image</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image" class="form-control mb-3" required>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+
+    {% if image_url %}
+    <hr>
+    <h5>Banner upload succes</h5>
+
+    <p><strong>Path:</strong> {{ image_url }}</p>
+    {% endif %}
+</div>
+
+{% endblock %}

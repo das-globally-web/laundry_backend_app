@@ -1,0 +1,48 @@
+<div class="sidebar">
+    <a href="/admin/dashboard/">Dashboard</a>
+    <a data-bs-toggle="collapse" href="#settingsSubmenu" role="button" aria-expanded="false"
+        aria-controls="settingsSubmenu">
+        Banners ▾
+    </a>
+    <div class="collapse submenu" id="settingsSubmenu">
+        <a href="/admin/uploadBanner">Upload Banner</a>
+        <a href="/admin/allBanners">All Banners</a>
+    </div>
+    <a data-bs-toggle="collapse" href="#settingsSubmenu2" role="button" aria-expanded="false"
+        aria-controls="settingsSubmenu2">
+        Service ▾
+    </a>
+    <div class="collapse submenu" id="settingsSubmenu2">
+        <a href="/admin/addService">Add Service</a>
+        <a href="/admin/allService">All Services</a>
+    </div>
+    <a data-bs-toggle="collapse" href="#settingsSubmenu3" role="button" aria-expanded="false"
+        aria-controls="settingsSubmenu3">
+        Products ▾
+    </a>
+    <div class="collapse submenu" id="settingsSubmenu3">
+        <a href="/admin/addprodcut">Add Product</a>
+        <a href="/admin/allproducts">All Products</a>
+    </div>
+    <a data-bs-toggle="collapse" href="#settingsSubmenu4" role="button" aria-expanded="false"
+        aria-controls="settingsSubmenu4">
+        Slot ▾
+    </a>
+    <div class="collapse submenu" id="settingsSubmenu4">
+        <a href="/admin/addSlot">Add Slot</a>
+        <a href="/admin/slot-list">All Slot</a>
+    
+    </div>
+    <a data-bs-toggle="collapse" href="#settingsSubmenu5" role="button" aria-expanded="false"
+        aria-controls="settingsSubmenu5">
+        Staff ▾
+    </a>
+    <div class="collapse submenu" id="settingsSubmenu5">
+        <a href="/admin/addstaff_user">Add Staff</a>
+        <a href="/admin/get_staff">All Staff</a>
+    
+    </div>
+    <a href="/admin/allOrders">Orders</a>
+    <a href="{% url 'logout' %}">Logout</a>
+
+</div>

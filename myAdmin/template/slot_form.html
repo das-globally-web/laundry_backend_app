@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Slot{% endblock %}
+
+{% block content %}
+<div>
+    <h2>Create a Slot</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Start Time -->
+        <div class="mb-3">
+            <label for="startTime" class="form-label">Start Time</label>
+            <input type="text" name="startTime" class="form-control" required>
+        </div>
+
+        <!-- End Time -->
+        <div class="mb-3">
+            <label for="endtime" class="form-label">End Time</label>
+            <input type="text" name="endtime" class="form-control" required>
+        </div>
+
+        <!-- Pickup -->
+        <div class="mb-3 form-check">
+            <input type="checkbox" name="pickup" class="form-check-input" id="pickup">
+            <label class="form-check-label" for="pickup">If pick up slot then click the check box
+                
+            </label>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block title %}All Orders{% endblock %}
+
+{% block content %}
+
+<style>
+    .print-btn {
+        margin-top: 10px;
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: white;
+        font-size: 14px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .print-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+<div class="container py-5">
+    <h2 class="mb-4">🧾 All Orders</h2>
+
+    <div class="table-responsive shadow-sm rounded" style="margin-top: 40px;">
+        <table class="table table-hover table-bordered align-middle text-center">
+            <thead class="table-primary">
+                <tr>
+                    <th style="white-space: nowrap;">#</th>
+                    <th style="white-space: nowrap;">Order ID</th>
+                    <th style="white-space: nowrap;">User Name</th>
+                    <th style="white-space: nowrap;">Created At</th>
+                    <th style="white-space: nowrap;">Delivery Date</th>
+                    <th style="white-space: nowrap;">Address</th>
+                    <th style="white-space: nowrap;">Pickup Slot</th>
+                    <th style="white-space: nowrap;">Drop Slot</th>
+                    <th style="white-space: nowrap;">Payment Type</th>
+                    <th style="white-space: nowrap;">Products</th>
+                    <th style="white-space: nowrap;">Total Amount</th>
+                    <th style="white-space: nowrap;">Ironing</th>
+                    <th style="white-space: nowrap;">Delivered</th>
+                    <th style="white-space: nowrap;">Barcode</th>
+                    <th style="white-space: nowrap;">QR Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td style="white-space: nowrap;">{{ forloop.counter }}</td>
+                    <td style="white-space: nowrap;">{{ order.order_id }}</td>
+                    <td style="white-space: nowrap;">{{ order.user.name }}</td>
+                    <td style="white-space: nowrap;">{{ order.create_date }}</td>
+                    <td style="white-space: nowrap;">{{ order.delivery_date }}</td>
+                    <td style="white-space: nowrap;">{{order.address}}</td>
+                    <td style="white-space: nowrap;">{{ order.pickup_slot }} </td>
+                    <td style="white-space: nowrap;">{{ order.delivery_slot }} </td>
+                    <td style="white-space: nowrap;">{{ order.payment_tpe|default:"N/A" }}</td>
+                    <td class="text-start">
+                        <ul class="list-unstyled mb-0" style="display: flex; gap: 20px;">
+                            {% for item in order.product %}
+                            <li class="mb-3 p-2 border rounded homwdawe bg-light" width="235px">
+                                <strong>Title:</strong> {{ item.product.title }}<br>
+                                <strong>Qty:</strong> {{ item.quantity }}<br>
+                                <img src="{{ item.product.image }}" alt="Product Image" class="img-thumbnail my-2"
+                                    style="width: 100px; height: 100px; object-fit: cover;" />
+                                <div>
+                                    <strong>Chosen Service:</strong><br>
+                                    <span class="badge bg-success">
+                                        {{ item.chosed_service.title }} - ₹{{ item.chosed_service.price }}
+                                    </span>
+                                    <span class="badge bg-success">
+                                        total ₹{{ item.chosed_service.price|multiply:item.quantity }}
+                                    </span>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td><strong>₹{{ order.total_booked_amount }}</strong></td>
+                    <td>
+                        {% if order.iroing %}
+                        <span class="badge bg-success">Yes</span>
+                        {% else %}
+                        <span class="badge bg-secondary">No</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if order.deliverd %}
+                        <span class="badge bg-success">Yes</span>
+                        {% else %}
+                        <span class="badge bg-danger">No</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="scener-ss text-center">
+                            <img src="{{ order.barcode_path }}" alt="Barcode" class="img-fluid" />
+                            <button class="print-btn" onclick="printImage('{{ order.barcode_path }}')">🖨️ Print
+                                Barcode</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="scener-ss text-center">
+                            <img src="{{ order.qrcode_path }}" alt="QR Code" class="img-fluid" />
+                            <button class="print-btn" onclick="printImage('{{ order.qrcode_path }}')">🖨️ Print QR
+                                Code</button>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="12" class="text-center text-muted">No orders found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function printImage(imageUrl) {
+        const win = window.open('', '_blank');
+        win.document.write(`
+            <html>
+            <head>
+                <title>Print Image</title>
+                <style>
+                    body { text-align: center; margin: 0; padding: 0; }
+                    img { max-width: 100%; }
+                </style>
+            </head>
+            <body onload="window.print(); window.close();">
+                <img src="${imageUrl}" />
+            </body>
+            </html>
+        `);
+        win.document.close();
+    }
+</script>
+{% endblock %}

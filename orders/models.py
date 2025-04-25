@@ -1,0 +1,21 @@
+from mongoengine import Document, StringField, FloatField, ListField, DictField, BooleanField
+
+class OrderTable(Document):
+    order_id = StringField(required=True)
+    userid = StringField(required=True)
+    create_date = StringField(required=True)
+    delivery_date = StringField(required=True)
+    trx_id = StringField(required=False)
+    payment_tpe = StringField(required=True)
+    product = ListField(DictField(), required=True)
+    total_booked_amount = FloatField(required=True)
+    iroing = BooleanField(default=False, required=True)
+    deliverd = BooleanField(default=False)
+    barcode_path = StringField(required=True)
+    qrcode_path = StringField(required=True)
+    address = StringField(required=True)
+    latitude = FloatField(required=True)
+    longitude = FloatField(required=True)
+    user = DictField(required=True)
+    delivery_slot = StringField(required=True)
+    pickup_slot = StringField(required=True)
