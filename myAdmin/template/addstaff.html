@@ -1,44 +1,31 @@
 {% extends 'base.html' %}
-{% block title %}Add Staff{% endblock %}
+{% block title %}{% if user %}Edit{% else %}Add{% endif %} Staff{% endblock %}
 
 {% block content %}
 <div class="bg-light">
     <div class="container mt-5">
-        <h2 class="mb-4 text-center">Register User</h2>
+        <h2 class="mb-4 text-center">{% if user %}Edit{% else %}Register{% endif %} Staff</h2>
+
         {% if error %}
         <div class="alert alert-danger">{{ error }}</div>
         {% endif %}
+
         <form method="post">
             {% csrf_token %}
             <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input type="text" name="name" class="form-control" required>
+                <input type="text" name="name" class="form-control" value="{{ user.name|default:'' }}" required>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" required>
-            </div>
+            
             <div class="mb-3">
                 <label class="form-label">Phone Number</label>
-                <input type="text" name="phone_number" class="form-control" required>
+                <input type="text" name="phone_number" class="form-control" value="{{ user.phone_number|default:'' }}" required>
             </div>
-            <!-- <div class="mb-3">
-                <label class="form-label">Country Code</label>
-                <input type="text" name="country_code" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Current Address</label>
-                <input type="text" name="current_address" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Profile Pic URL</label>
-                <input type="text" name="profile_pic_url" class="form-control">
-            </div> -->
             <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" name="staff">
+                <input class="form-check-input" type="checkbox" name="staff" {% if user and user.staff %}checked{% endif %}>
                 <label class="form-check-label">Staff?</label>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Add Staff</button>
+            <button type="submit" class="btn btn-primary w-100">{% if user %}Update{% else %}Add{% endif %} Staff</button>
         </form>
     </div>
 </div>

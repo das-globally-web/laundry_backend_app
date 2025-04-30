@@ -59,3 +59,39 @@ def deleteProduct(request, id):
     # You can also remove the file from media storage here if needed
     banner.delete()
     return redirect('allproducts')
+
+@session_login_required
+def editProduct(request, id):
+    product = ProductTable.objects.get(id=ObjectId(str(id)))
+
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        image = request.FILES.get('image')
+
+        # If new image is uploaded, save it
+        if image:
+            ext = image.name.split('.')[-1]
+            filename = f"{uuid.uuid4()}.{ext}"
+            file_path = os.path.join('media', filename)
+            saved_path = default_storage.save(file_path, ContentFile(image.read()))
+            image_url = default_storage.url(saved_path)
+        else:
+            image_url = product.image  # Keep existing
+
+        price_titles = request.POST.getlist('price_title[]')
+        price_values = request.POST.getlist('price_value[]')
+        price_json = []
+        for i in range(len(price_titles)):
+            price_json.append({
+                "title": price_titles[i],
+                "price": float(price_values[i])
+            })
+
+        product.title = title
+        product.image = image_url
+        product.price_json = price_json
+        product.save()
+
+        return redirect('allproducts')
+
+    return render(request, 'addproduct.html', {'product': product})

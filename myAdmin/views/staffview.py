@@ -9,7 +9,6 @@ def addstaff_user(request):
     if request.method == "POST":
         form_data = {
             "name": request.POST.get("name"),
-            "email": request.POST.get("email"),
             "phone_number": request.POST.get("phone_number"),
             "country_code": "91",
             "current_address": "test",
@@ -35,7 +34,30 @@ def addstaff_user(request):
 def get_staff(request):
     if request.method == "GET":
         users = User.objects(staff=True)
-        tojson = users.to_json()
-        fromjson = json.loads(tojson)
-        return render(request, "staff_list.html", {"users": fromjson})
+        
+        return render(request, "staff_list.html", {"users": users})
     return render(request, "staff_list.html", {"error": "Invalid request method"})
+
+
+from bson import ObjectId
+
+@session_login_required
+def editstaff_user(request, id):
+    user = User.objects.get(id=ObjectId(str(id)))
+
+    if request.method == "POST":
+        user.name = request.POST.get("name")
+        user.email = request.POST.get("email")
+        user.phone_number = request.POST.get("phone_number")
+        user.staff = request.POST.get("staff") == "on"
+        user.country_code = "91"
+        user.current_address = "test"
+        user.profile_pic_url = "test"
+
+        try:
+            user.save()
+            return redirect("get_staff")
+        except NotUniqueError:
+            return render(request, "addstaff.html", {"error": "Email or Phone already exists.", "user": user})
+
+    return render(request, "addstaff.html", {"user": user})

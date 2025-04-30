@@ -31,6 +31,10 @@
                         </ul>
                     </div>
                     <div class="d-flex justify-content-between mt-auto">
+                        <a href="{% url 'editproduct' product.id %}" class="btn btn-sm btn-outline-danger"
+                            onclick="return confirm('Are you sure you want to edit this product?');">
+                            ✏Edit
+                        </a>
 
                         <a href="{% url 'deleteProduct' product.id %}" class="btn btn-sm btn-outline-danger"
                             onclick="return confirm('Are you sure you want to delete this product?');">

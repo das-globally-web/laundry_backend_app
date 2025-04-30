@@ -17,7 +17,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Phone</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,7 +30,11 @@
                     </td>
                     <td>{{ user.phone_number }}</td>
                     <td>
-                        {{ user.email }}
+                        <a href="{% url 'editstaff' user.id %}" class="btn btn-sm btn-outline-danger"
+                            onclick="return confirm('Are you sure you want to edit this staff?');">
+                            ✏Edit
+                        </a>
+
                     </td>
                 </tr>
                 {% endfor %}
