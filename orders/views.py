@@ -148,3 +148,14 @@ def get_order_perticuler(request, id):
       
         return JsonResponse({"message": "All orders", "data": fromjson}, safe=False, status=200)
     return JsonResponse({"error": "Invalid request method"}, status=405)
+
+@csrf_exempt
+def delete_order(request, id):
+    if request.method == 'DELETE':
+        try:
+            order = OrderTable.objects.get(id=ObjectId(id))
+            order.delete()
+            return JsonResponse({"message": "Order deleted successfully"}, status=200)
+        except OrderTable.DoesNotExist:
+            return JsonResponse({"error": "Order not found"}, status=404)
+    return JsonResponse({"error": "Invalid request method"}, status=405)

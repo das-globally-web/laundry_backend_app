@@ -46,7 +46,7 @@ def addProduct(request):
         # You can save this to MongoDB or wherever
         return redirect('allproducts')  # Or render success page
 
-    return render(request, 'addproduct.html')
+    return render(request, 'addProduct.html')
 @session_login_required
 def allProducts(request):
   # Replace with your model
@@ -94,4 +94,4 @@ def editProduct(request, id):
 
         return redirect('allproducts')
 
-    return render(request, 'addproduct.html', {'product': product})
+    return render(request, 'addProduct.html', {'product': product})

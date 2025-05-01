@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import create_order, get_order_perticuler, get_orders, update_status, update_quantity, get_orders_userid
+from .views import create_order, get_order_perticuler, get_orders, update_status, update_quantity, get_orders_userid,delete_order
 
 
 urlpatterns = [
@@ -9,5 +9,6 @@ urlpatterns = [
     path('update-quantity-orders', update_quantity, name="update_quantity"),
     path('orders-users/<str:id>',get_orders_userid, name="get_orders_userid"),
     path('perticuler-order/<str:id>',get_order_perticuler, name="get_order_perticuler"),
+    path('delete-order/<str:id>',delete_order, name="delete_order"),
 
 ]
