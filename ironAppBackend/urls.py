@@ -20,9 +20,11 @@ from django.conf.urls.static import static
 from ironAppBackend import settings
 from .views import file_upload
 from frontend.views.homeview import home
+from frontend.views.aboutview import aboutus
 
 urlpatterns = [
     path('', home, name='home'),
+    path('aboutus', aboutus, name='aboutus'),
     path('api/', include('users.urls')),
     path('api/', include('banners.urls')),
     path('api/', include('service.urls')),

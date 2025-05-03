@@ -260,6 +260,7 @@ a {
   position: absolute;
   top: 0;
   transition: all 0.3s ease-in-out;
+  width: 100%;
 }
 .aawwaa:hover .cheadre {
   opacity: 0;
@@ -284,14 +285,17 @@ a {
   padding: 31px 0px 50px 0px;
 }
 .rechtanal-img {
-  padding: 20px 0px;
+  /* padding: 20px 0px; */
 }
 .rechtanal-img img {
   width: 100%;
   border-radius: 23px;
+  height: 399px;
+  object-fit: cover;
 }
 .jecit-shop {
   text-align: center;
+  padding: 10px 0px;
 }
 .jecit-shop h3 {
   font-weight: 500;
@@ -850,6 +854,28 @@ font-size: 28px;
 padding: 10px 0px ;
 color: #000000;
 font-family: "Kumbh Sans";
+}#topBtn {
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  padding: 10px 15px;
+  background-color: #37A2D2 !important;
+  color: white;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  z-index: 999;
+  cursor: pointer;
+  transform: translateY(20px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+#topBtn.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .chart-titlepng span{
