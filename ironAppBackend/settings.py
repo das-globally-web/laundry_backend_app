@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myAdmin',
     'orders',
+    'frontend',
 
 ]
 
@@ -62,7 +63,7 @@ ROOT_URLCONF = 'ironAppBackend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'myAdmin/template')],  # Make sure this path is correct
+        'DIRS': [os.path.join(BASE_DIR, 'myAdmin/template'), os.path.join(BASE_DIR, 'frontend/template')],  # Make sure this path is correct
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
