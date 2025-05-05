@@ -21,10 +21,17 @@ from ironAppBackend import settings
 from .views import file_upload
 from frontend.views.homeview import home
 from frontend.views.aboutview import aboutus
-
+from frontend.views.serviceview import service
+from frontend.views.priceview import price
+from frontend.views.contactus import contactUs
+from frontend.views.blogview import blog
 urlpatterns = [
     path('', home, name='home'),
     path('aboutus', aboutus, name='aboutus'),
+    path('service', service, name="service"),
+    path("price", price, name="price"),
+    path("contactus", contactUs, name="contactus"),
+    path("blogs", blog, name="blog"),
     path('api/', include('users.urls')),
     path('api/', include('banners.urls')),
     path('api/', include('service.urls')),

@@ -259,8 +259,8 @@ a {
 .cheadre {
   position: absolute;
   top: 0;
-  transition: all 0.3s ease-in-out;
   width: 100%;
+  transition: all 0.3s ease-in-out;
 }
 .aawwaa:hover .cheadre {
   opacity: 0;
@@ -285,17 +285,14 @@ a {
   padding: 31px 0px 50px 0px;
 }
 .rechtanal-img {
-  /* padding: 20px 0px; */
+  padding: 20px 0px;
 }
 .rechtanal-img img {
   width: 100%;
   border-radius: 23px;
-  height: 399px;
-  object-fit: cover;
 }
 .jecit-shop {
   text-align: center;
-  padding: 10px 0px;
 }
 .jecit-shop h3 {
   font-weight: 500;
@@ -507,6 +504,31 @@ a {
   align-items: center;
   justify-content: center;
 }
+
+#topBtn {
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  padding: 10px 15px;
+  background-color: #37a2d2 !important;
+  color: white;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  z-index: 999;
+  cursor: pointer;
+  transform: translateY(20px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+#topBtn.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .playvideo {
   cursor: pointer;
   width: 70px;
@@ -530,7 +552,7 @@ a {
 
 .title-boxsde {
   background-color: #fff;
-  box-shadow: 1px 8px 9px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.2);
   width: 77px;
   height: 77px;
   display: flex;
@@ -734,7 +756,7 @@ a {
   padding: 73px 0px 200px 0px;
   background-size: cover;
   background-position: center;
-  background-image: url(../images/aboutusbgimg.png);
+  background-image: url("../images/aboutusbgimg.png");
 }
 .title-bods {
   display: flex;
@@ -815,71 +837,698 @@ a {
   left: -39px;
 }
 
-
 /* .laundry-specialistssec start  */
 
-.laundry-specialistssec{
-  padding: 100px ;
+.laundry-specialistssec {
+  padding: 50px 0px;
 }
 
-.teamtitlr span{
-font-weight: 400;
-font-size: 18px;
-color: #37A2D2;
-font-family: "Kumbh Sans";
-
+.teamtitlr span {
+  font-weight: 400;
+  font-size: 18px;
+  color: #37a2d2;
+  font-family: "Kumbh Sans";
 }
 
-.teamtitlr h3{
+.teamtitlr h3 {
   font-weight: 700;
   font-size: 40px;
   color: #000000;
   font-family: "Kumbh Sans";
-  padding-bottom: 17px;
+  padding: 17px 0px;
 }
 
-.teamtitlr p{
+.teamtitlr p {
   font-weight: 400;
   font-size: 16px;
   color: #000000;
   font-family: "Kumbh Sans";
 }
-.chart-titlepng img{
-
+.chart-titlepng img {
+  width: 310px !important;
+  margin: 0 auto;
 }
 
-.chart-titlepng h4{
-font-weight: 600;
-font-size: 28px;
-padding: 10px 0px ;
-color: #000000;
-font-family: "Kumbh Sans";
-}#topBtn {
-  position: fixed;
-  bottom: 40px;
-  right: 30px;
-  z-index: 99;
+.chart-titlepng h4 {
+  font-weight: 600;
+  font-size: 28px;
+  padding: 10px 0px;
+  color: #000000;
+  font-family: "Kumbh Sans";
+}
+
+.chart-titlepng span {
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+  font-family: "Kumbh Sans";
+}
+
+.laundry-specialistssec .owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  background-color: #37a2d2 !important;
+}
+
+/* .why-chooseus satrt  */
+
+.why-chooseus {
+  padding: 50px 0px;
+}
+
+/* .about-fours-sectio satrt  */
+
+.about-fours-section {
+  padding: 50px 0px;
+}
+
+.service-an a {
+  color: #37a2d2;
   font-size: 18px;
-  padding: 10px 15px;
-  background-color: #37A2D2 !important;
-  color: white;
-  border: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  z-index: 999;
-  cursor: pointer;
-  transform: translateY(20px);
-  transition: opacity 0.4s, transform 0.4s;
+  border: 1px solid #37a2d2;
+  padding: 10px 10px;
+  font-family: "Kumbh Sans";
+  margin-top: 20px;
 }
-#topBtn.show {
+
+/* service pages button  */
+.servicepages-11 {
+  padding: 50px 0px;
+}
+.actives {
+  background-color: #37a2d2 !important;
+  color: white;
+}
+.content-divsed {
+  display: none;
+}
+.showde {
   display: block;
+}
+.buttonssed {
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+}
+.buttonssed button {
+  width: 100%;
+  font-weight: 800;
+  font-size: 18px;
+  text-align: start;
+  background-color: #fff;
+  border: none !important;
+  font-family: "Kumbh Sans";
+  padding: 15px 20px;
+}
+.hillhim-manasaas ul {
+  padding: 0px;
+}
+.hillhim-manasaas {
+  background-color: #fff;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+  padding: 20px 20px;
+}
+.hillhim-manasaas ul li {
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+  font-family: "Kumbh Sans";
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 13px;
+}
+.hillhim-manasaas h2 {
+  font-weight: 800;
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-family: "Kumbh Sans";
+  color: #000000;
+}
+.hillhim-manasaas a {
+  color: #37a2d2;
+  font-weight: 400;
+  padding: 10px 10px;
+  font-weight: 400;
+  font-size: 18px;
+  font-family: "Kumbh Sans";
+  transition: all 0.6s;
+  border: 1px solid #37a2d2;
+}
+.hillhim-manasaas a:hover {
+  color: #fff;
+  background-color: #37a2d2;
+}
+
+.whatareyodo strong {
+  color: #37a2d2;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Kumbh Sans";
+}
+
+.whatareyodo h5 {
+  color: #000000;
+  font-weight: 700;
+  font-size: 40px;
+  font-family: "Kumbh Sans";
+  padding: 15px 0px;
+}
+
+.whatareyodo p {
+  color: #000000;
+  font-weight: 400;
+  border-left: 2px solid #37a2d2;
+  font-size: 16px;
+  padding-left: 20px;
+  font-family: "Kumbh Sans";
+}
+
+/* form code satrt  */
+
+.submitsedeser h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: #000000;
+  font-family: "Kumbh Sans";
+}
+.submitsedeser form {
+  display: flex;
+  flex-direction: column;
+}
+.submitsedeser textarea::placeholder {
+  color: #989898 !important;
+}
+.submitsedeser input::placeholder {
+  color: #989898 !important;
+}
+.submitsedeser input,
+textarea {
+  margin-bottom: 15px;
+  padding: 12px;
+  font-family: "Kumbh Sans";
+  outline: none;
+  border: 1px solid #a8a8a8;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.submitsedeser textarea {
+  resize: vertical;
+  height: 100px;
+  outline: none;
+  font-family: "Kumbh Sans";
+}
+
+.submitsedeser button {
+  background-color: transparent;
+  color: #37a2d2;
+  border: 1px solid #37a2d2;
+  padding: 10px 10px;
+  cursor: pointer;
+  font-family: "Kumbh Sans";
+  font-weight: 400;
+  font-size: 18px;
+  width: 128px;
+  transition: all 0.5s;
+}
+
+.submitsedeser button:hover {
+  background-color: #37a2d2;
+  color: #fff;
+}
+
+.hdeyey p {
+  border: none;
+  padding: 0px;
+  font-family: "Kumbh Sans";
+}
+.nwewe p {
+  padding-bottom: 20px;
+  font-family: "Kumbh Sans";
+}
+.nwewe a {
+  background-color: transparent;
+  font-family: "Kumbh Sans";
+
+  color: #37a2d2;
+  border: 1px solid #37a2d2;
+  padding: 10px 10px;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 18px;
+  width: 128px;
+  transition: all 0.5s;
+  width: initial !important;
+}
+.nwewe a:hover {
+  background-color: #37a2d2;
+  color: #fff;
+}
+
+/* price-section-1 satrt  */
+
+.price-section-1 {
+  padding: 50px 0px;
+}
+.shirstservice {
+  padding: 10px 0px;
+  transition: transform 0.5s ease;
+}
+.shirstservice h5 {
+  font-weight: 800;
+  font-size: 22px;
+  color: #000000;
+  font-family: "Kumbh Sans";
+}
+
+.shirstservice span {
+  font-weight: 400;
+  font-size: 16px;
+  color: #000000;
+  font-family: "Kumbh Sans";
+  display: block;
+  padding: 8px 0px;
+}
+
+.main-boxsing img {
+  transition: all 0.5s;
+  transition: opacity 0.5s ease;
+}
+
+.shirstservice h4 {
+  font-weight: 700;
+  font-size: 22px;
+  color: #37a2d2;
+  font-family: "Kumbh Sans";
+}
+.ordernowbutton a {
+  font-size: 18px;
+  font-family: "Kumbh Sans";
+  color: #37a2d2;
+  font-weight: 400;
+  padding: 10px 8px;
+  transition: all 0.5s;
+  border: 1px solid #37a2d2;
+  transform: translateY(40px);
+  transition: all 0.3s ease;
+}
+
+.ordernowbutton {
+  transition: all 0.5s;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+  text-align: center;
+}
+
+.main-boxsing:hover .ordernowbutton {
+  display: block;
+}
+
+.ordernowbutton a:hover {
+  background-color: #37a2d2;
+  color: #fff;
+}
+
+.main-boxsing {
+  width: 100%;
+  height: 100%;
+  padding: 20px 0px;
+  position: relative;
+  transition: all 0.5s ease;
+}
+.text-centerhum {
+  height: 288px;
+  cursor: pointer;
+  width: 100%;
+  border: 1px solid black;
+
+  overflow: hidden;
+  position: relative;
+}
+.text-centerhum {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+}
+
+/* ............ box animation / */
+
+.main-boxsing:hover img {
+  opacity: 0;
+}
+.main-boxsing:hover .shirstservice {
+  transform: translateY(-68px);
+}
+
+.main-boxsing:hover .ordernowbutton {
   opacity: 1;
   transform: translateY(0);
 }
+.main-boxsing:hover .ordernowbutton a {
+  transform: translateY(-60px);
+}
 
-.chart-titlepng span{
+.main-boxsing img {
+  width: 114px !important;
+  margin: 0 auto;
+}
+
+.price-section-1 .owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  background-color: #37a2d2 !important;
+}
+
+/* .picesection-2 satrt  */
+
+.picesection-2 {
+  padding: 0px 0px 50px 0px;
+}
+.pricemanan {
+  background-color: #e6e6e6;
+  display: flex;
+  margin: 5px 0px;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+.pricemanan p {
+  font-family: "Kumbh Sans";
+  font-weight: 400;
+  color: #6a6a6a;
+  font-size: 28px;
+}
+
+.whitetitle {
+  background-color: #fff;
+}
+
+/* .blog-tile-title  */
+
+.blog-tile-title {
+  padding: 50px 0px;
+}
+
+.pressingtr-for h3 {
+  font-weight: 800;
+  font-size: 40px;
+  color: #000000;
+}
+
+.pressingtr-for span {
+  font-family: "Kumbh Sans";
+  font-weight: 400;
+  font-size: 18px;
+  color: #000000;
+}
+.pressingtr-for p {
+  font-family: "Kumbh Sans";
+  font-weight: 400;
+  font-size: 18px;
+  color: #000000;
+}
+.kumbh-title {
+  padding: 5px 0px;
+}
+
+.pressingtr-for p {
+  font-weight: 400;
+  font-family: "Kumbh Sans";
+  font-size: 16px;
+  padding: 20px 0px;
+  color: #000000;
+}
+.pressingtr-for a {
+  color: #37a2d2;
+  font-family: "Kumbh Sans";
+  border: 1px solid #37a2d2;
+  padding: 10px 10px;
+  transition: all 0.5s;
+}
+
+.pressingtr-for a:hover {
+  background-color: #37a2d2;
+  color: #fff;
+}
+
+.clwnetertitle-box h2 {
+  font-family: "Kumbh Sans";
+  color: #000000;
+  font-weight: 700;
+  font-size: 28px;
+}
+.clwnetertitle-box ul {
+  padding: 0px;
+  margin-top: 30px;
+}
+
+.clwnetertitle-box ul li {
+  font-family: "Kumbh Sans";
+  color: #000000;
   font-weight: 400;
   font-size: 16px;
-color: #000000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.clwnetertitle-box ul li img {
+  width: 24px;
+}
+.formsection form h5 {
+  color: #000000;
+  font-weight: 400;
+  font-size: 28px;
+  font-family: "Kumbh Sans";
+}
+
+.teamtitlr a {
+  font-weight: 400;
+  font-size: 28px;
+  font-family: "Kumbh Sans";
+  padding: 10px 10px;
+  color: #fff;
+  background-color: #37a2d2;
+  margin-top: 20px;
+}
+
+.formsection {
+  margin-top: 50px;
+}
+.formsection .search-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  width: 261px;
+  font-family: "Kumbh Sans";
+}
+
+.formsection .search-box {
+  padding: 10px 15px;
+  border: 1px solid #959595;
+  border-radius: 25px;
+  font-family: "Kumbh Sans";
+  font-size: 16px;
+  outline: none;
+  width: 250px;
+}
+
+.formsection .search-icon {
+  margin-left: -35px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #959595;
+}
+
+/* blog-smg-comit satrt  */
+
+.blog-smg-comit {
+  padding: 0px 0px 50px 0px;
+}
+
+.locstion-section {
+  padding: 50px 0px;
+}
+.iframe-box iframe {
+  width: 100%;
+  height: 359px;
+}
+
+/* conteact-pagessection  satrt  */
+
+.conteact-pagessection {
+  padding: 0px 0px 50px 0px;
+}
+.addresht {
+  padding: 30px 60px;
+  text-align: center;
+  height: 100%;
+  border: 1px solid #000000;
+}
+.addresht h3 {
+  font-weight: 700;
+  color: #000000;
+  font-size: 28px;
+  font-family: "Kumbh Sans";
+}
+
+.addresht .boder-bottomse {
+  width: 53px;
+  height: 3px;
+  margin: 0 auto;
+  margin-top: 10px;
+  background-color: #000000;
+}
+
+.addresht p {
+  font-weight: 400;
+  color: #000000;
+  font-family: "Kumbh Sans";
+  font-size: 16px;
+  padding-top: 20px;
+}
+.dropquestion {
+  text-align: end;
+}
+
+.dropquestion h2 {
+  font-weight: 600;
+  font-size: 38px;
+  color: #000000;
+  font-family: "Kumbh Sans";
+  text-align: center;
+}
+
+.dropquestion .sub-heading {
+  width: 53px;
+  height: 3px;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #000000;
+}
+
+.dropquestion h3 {
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Kumbh Sans";
+  color: #37a2d2;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.dropquestion form input {
+  border: 1px solid #a8a8a8;
+  color: #a8a8a8;
+  font-weight: 400;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+  font-family: "Kumbh Sans";
+  margin-bottom: 15px;
+}
+
+.dropquestion form textarea {
+  border: 1px solid #a8a8a8;
+  color: #a8a8a8;
+  font-weight: 400;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+  font-family: "Kumbh Sans";
+}
+
+.dropquestion form .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dropquestion form .checkbox input {
+  width: initial;
+  margin: 0px;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Kumbh Sans";
+  color: #000000b2;
+}
+.dropquestion form button {
+  font-weight: 400;
+  margin-top: 20px;
+  color: #37a2d2;
+  font-family: "Kumbh Sans";
+  padding: 10px 10px;
+  background-color: transparent;
+  border: 1px solid #37a2d2;
+  font-size: 18px;
+  transition: all 0.5s;
+}
+.dropquestion form button:hover {
+  background-color: #37a2d2;
+  color: #fff;
+}
+
+.buttonsdee {
+  outline: none;
+  box-shadow: none !important;
+  border: 2px solid #37a2d2;
+  padding: 2px 7px ;
+}
+
+.searctitle {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.frsgrtt button {
+  display: none;
+}
+.dlidertogal .andkarsedr img {
+  width: 56px;
+}
+@media screen and (max-width: 1199px) {
+  .navbar-expand-navs ul li {
+    padding: 15px 7px !important;
+  }
+  .navbar-expand-navs ul li a {
+    font-weight: 500;
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 991px) {
+  .satrtcode .navbar{
+    background-color: #fff;
+  }
+  .form-topheadre button {
+    display: none;
+  }
+
+  .frsgrtt button {
+    display: block !important;
+  }
+
+  .form-topheadre button {
+    padding: 7px 19px;
+    font-size: 16px;
+  }
+
+  .navbar-expand-navs ul li:nth-child(7) a {
+    margin-left: 0px !important;
+  }
+
+  .navbar-expand-navs ul li {
+    padding: 10px 7px !important;
+  }
+  .dlidertogal .andkarsedr img {
+    width: 46px;
+  }
+}
+@media screen and (max-width: 767px) {
+}
+@media screen and (max-width: 567px) {
 }
