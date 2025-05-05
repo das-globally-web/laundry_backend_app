@@ -41,3 +41,6 @@ urlpatterns = [
     path('admin/', include('myAdmin.urls')),
     path('api/upload/', file_upload, name="file_upload")
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+

@@ -23,6 +23,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  
+
 
 </head>
 
@@ -30,13 +32,60 @@
   <div class="main-project" id="lendding-pages">
     <headre class="header satrtcode">
       <nav class="navbar navbar-expand-lg p-0">
-        <div class="container">
-          <a class="navbar-brand" href="#"><img src="media/images/logo-project.svg" width="56px" alt="ironissue" /></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+        <div class="container dlidertogal">
+          <a class="navbar-brand andkarsedr" href="/"><img src="media/images/logo-project.svg" alt="ironissue" /></a>
+          <div class="searctitle">
+            <div class="d-flex  frsgrtt form-topheadre"  data-bs-toggle="modal" data-bs-target="#exampleModaledfr">
+              <button class="btn" type="submit" >Schedule a pickup</button>
+            </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModaledfr" tabindex="-1" aria-labelledby="exampleModaledfr" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modealsong">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="formtitle-boxsing">
+          <h2>Schedule a pickup</h2>
+          <form>
+            <input type="text" placeholder="Your Name*" required>
+
+            <div class="rowse">
+              <input type="email" placeholder="Your Email Address*" required>
+              <input type="tel" placeholder="Your Phone Number">
+            </div>
+
+            <input type="text" placeholder="Address*" required>
+
+            <select required>
+              <option value="">Service*</option>
+              <option value="dry-cleaning">Dry Cleaning</option>
+              <option value="laundry">Laundry</option>
+              <option value="ironing">Ironing</option>
+            </select>
+
+            <div class="date-row">
+              <input type="date" placeholder="Pick Up Date">
+              <input type="date" placeholder="Delivery Date">
+            </div>
+
+            <textarea placeholder="Your Comment"></textarea>
+
+            <button type="submit">Order Now</button>
+          </form>
+        </div>
+      </div>
+   
+    </div>
+  </div>
+</div>
+ 
+            <button class="navbar-toggler buttonsdee" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
           <div class="collapse navbar-collapse navbar-expand-navs" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
               <li class="nav-item">
@@ -68,8 +117,60 @@
               <div class="form-login">
                 <a href="#"><i class="fa-solid fa-user"></i> Log In</a>
               </div>
-              <button class="btn" type="submit">Schedule a pickup</button>
+
+              <button class="btn" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Schedule a
+                pickup</button>
+
+              <!-- Button trigger modal -->
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header modealsong">
+
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="formtitle-boxsing">
+                        <h2>Schedule a pickup</h2>
+                        <form>
+                          <input type="text" placeholder="Your Name*" required>
+
+                          <div class="rowse">
+                            <input type="email" placeholder="Your Email Address*" required>
+                            <input type="tel" placeholder="Your Phone Number">
+                          </div>
+
+                          <input type="text" placeholder="Address*" required>
+
+                          <select required>
+                            <option value="">Service*</option>
+                            <option value="dry-cleaning">Dry Cleaning</option>
+                            <option value="laundry">Laundry</option>
+                            <option value="ironing">Ironing</option>
+                          </select>
+
+                          <div class="date-row">
+                            <input type="date" placeholder="Pick Up Date">
+                            <input type="date" placeholder="Delivery Date">
+                          </div>
+
+                          <textarea placeholder="Your Comment"></textarea>
+
+                          <button type="submit">Order Now</button>
+                        </form>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
             </form>
+
+
+
           </div>
         </div>
       </nav>
@@ -136,7 +237,6 @@
     window.onscroll = () => btn.style.display = window.scrollY > 200 ? "block" : "none";
     const topFunction = () => window.scrollTo({ top: 0, behavior: "smooth" });
   </script>
-
 
 
 

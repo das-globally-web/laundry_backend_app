@@ -23,7 +23,7 @@ ol {
 }
 a {
   display: inline-block;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 .navbar-expand-navs ul li {
   padding: 15px 10px !important;
@@ -285,14 +285,18 @@ a {
   padding: 31px 0px 50px 0px;
 }
 .rechtanal-img {
-  padding: 20px 0px;
+  padding: 0px 0px 20px 0px ;
 }
 .rechtanal-img img {
   width: 100%;
+  object-fit: cover;
+  height: 364px;
   border-radius: 23px;
 }
+
 .jecit-shop {
   text-align: center;
+  margin-top: 15px;
 }
 .jecit-shop h3 {
   font-weight: 500;
@@ -322,7 +326,11 @@ a {
 }
 
 .rechtanal-img:hover {
-  border-radius: 10px;
+  /* border-radius: 10px; */
+  border-top-right-radius:20px ;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius:10px  ;
+  border-bottom-left-radius:10px ;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 /* .passionateaboutsec */
@@ -1048,8 +1056,10 @@ textarea {
   font-family: "Kumbh Sans";
   font-weight: 400;
   font-size: 18px;
-  width: 128px;
+  width: 155px;
+  text-align: center;
   transition: all 0.5s;
+  margin-top: 20px;
 }
 
 .submitsedeser button:hover {
@@ -1112,6 +1122,7 @@ textarea {
 
 .main-boxsing img {
   transition: all 0.5s;
+  height: 100px;
   transition: opacity 0.5s ease;
 }
 
@@ -1218,6 +1229,7 @@ textarea {
   font-weight: 400;
   color: #6a6a6a;
   font-size: 28px;
+  margin-bottom: 0px ;
 }
 
 .whitetitle {
@@ -1242,12 +1254,7 @@ textarea {
   font-size: 18px;
   color: #000000;
 }
-.pressingtr-for p {
-  font-family: "Kumbh Sans";
-  font-weight: 400;
-  font-size: 18px;
-  color: #000000;
-}
+
 .kumbh-title {
   padding: 5px 0px;
 }
@@ -1257,6 +1264,7 @@ textarea {
   font-family: "Kumbh Sans";
   font-size: 16px;
   padding: 20px 0px;
+  margin-bottom: 0px;
   color: #000000;
 }
 .pressingtr-for a {
@@ -1373,7 +1381,7 @@ textarea {
   font-size: 28px;
   font-family: "Kumbh Sans";
 }
-
+ 
 .addresht .boder-bottomse {
   width: 53px;
   height: 3px;
@@ -1381,7 +1389,7 @@ textarea {
   margin-top: 10px;
   background-color: #000000;
 }
-
+ 
 .addresht p {
   font-weight: 400;
   color: #000000;
@@ -1392,7 +1400,7 @@ textarea {
 .dropquestion {
   text-align: end;
 }
-
+ 
 .dropquestion h2 {
   font-weight: 600;
   font-size: 38px;
@@ -1400,7 +1408,7 @@ textarea {
   font-family: "Kumbh Sans";
   text-align: center;
 }
-
+ 
 .dropquestion .sub-heading {
   width: 53px;
   height: 3px;
@@ -1409,7 +1417,7 @@ textarea {
   margin-bottom: 10px;
   background-color: #000000;
 }
-
+ 
 .dropquestion h3 {
   font-weight: 600;
   font-size: 16px;
@@ -1430,7 +1438,7 @@ textarea {
   font-family: "Kumbh Sans";
   margin-bottom: 15px;
 }
-
+ 
 .dropquestion form textarea {
   border: 1px solid #a8a8a8;
   color: #a8a8a8;
@@ -1442,7 +1450,7 @@ textarea {
   width: 100%;
   font-family: "Kumbh Sans";
 }
-
+ 
 .dropquestion form .checkbox {
   display: flex;
   align-items: center;
@@ -1471,26 +1479,93 @@ textarea {
   background-color: #37a2d2;
   color: #fff;
 }
-
+ 
 .buttonsdee {
   outline: none;
   box-shadow: none !important;
-  border: 2px solid #37a2d2;
-  padding: 2px 7px ;
+  border: 2px solid #37a2d2 !important;
+  padding: 2px 7px !important;
 }
-
+ 
 .searctitle {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-
+ 
 .frsgrtt button {
   display: none;
 }
 .dlidertogal .andkarsedr img {
   width: 56px;
 }
+ 
+/* header modal code  */
+ 
+.formtitle-boxsing h2 {
+  font-weight: 800;
+  font-size: 34px;
+  color: #000000;
+  font-family: "Kumbh Sans";
+}
+ 
+.formtitle-boxsing form {
+  max-width: 600px;
+}
+.formtitle-boxsing input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #919191;
+  font-size: 15px;
+  font-family: "Kumbh Sans";
+  outline: none;
+  font-weight: 400;
+}
+.formtitle-boxsing input::placeholder {
+  color: #000000 !important;
+}
+.rowse {
+  display: flex;
+  gap: 10px;
+}
+.formtitle-boxsing .rowse > div {
+  flex: 1;
+}
+.formtitle-boxsing .date-row {
+  display: flex;
+  gap: 10px;
+}
+.formtitle-boxsing textarea {
+  resize: vertical;
+  height: 100px;
+  font-family: "Kumbh Sans";
+}
+.formtitle-boxsing textarea::placeholder {
+  color: #000000;
+}
+.formtitle-boxsing button {
+  background-color: #37a2d2;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0px !important;
+  cursor: pointer;
+  font-family: "Kumbh Sans";
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 10px;
+}
+.modealsong button {
+  box-shadow: none !important;
+  outline: none !important;
+}
+.satrtcode .modal-dialog {
+  max-width: 650px !important;
+}
+ 
 @media screen and (max-width: 1199px) {
   .navbar-expand-navs ul li {
     padding: 15px 7px !important;
@@ -1501,26 +1576,26 @@ textarea {
   }
 }
 @media screen and (max-width: 991px) {
-  .satrtcode .navbar{
+  .satrtcode .navbar {
     background-color: #fff;
   }
   .form-topheadre button {
     display: none;
   }
-
+ 
   .frsgrtt button {
     display: block !important;
   }
-
+ 
   .form-topheadre button {
     padding: 7px 19px;
     font-size: 16px;
   }
-
+ 
   .navbar-expand-navs ul li:nth-child(7) a {
     margin-left: 0px !important;
   }
-
+ 
   .navbar-expand-navs ul li {
     padding: 10px 7px !important;
   }
@@ -1532,3 +1607,4 @@ textarea {
 }
 @media screen and (max-width: 567px) {
 }
+ 
