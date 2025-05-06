@@ -173,45 +173,8 @@
 
 
 
+ 
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
-<script>
-  const btn = document.getElementById("topBtn");
-  window.onscroll = () => btn.style.display = window.scrollY > 200 ? "block" : "none";
-  const topFunction = () => window.scrollTo({ top: 0, behavior: "smooth" });
-</script>
 
-<!-- owl  slider -->
-
-<script>
-  $(function () {
-    // Owl Carousel
-    var owl = $(".oarousel");
-    owl.owlCarousel({
-      items: 4,
-      margin: 15,
-      loop: true,
-      dots: true,
-      nav: false,
-      autoplay: true,
-
-      responsive: {
-        0: {
-          items: 2 // 1 item between 0px and 599px
-        },
-        600: {
-          items: 2 // 2 items between 600px and 999px
-        },
-        1000: {
-          items: 4 // 3 items for 1000px and up
-        }
-      }
-    });
-  });
-</script>
 {% endblock %}
