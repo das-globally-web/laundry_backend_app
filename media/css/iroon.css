@@ -22,9 +22,7 @@ ol {
   list-style: none;
 }
 
-
-
-.satrtcode{
+.satrtcode {
   position: fixed;
   width: 100%;
   z-index: 9999;
@@ -123,13 +121,12 @@ a {
 }
 /* hero_section satrt code  */
 
-
 .hero_section {
   background: url("../images/hellobg-img.png") no-repeat center center;
   background-size: cover;
   position: relative;
   z-index: 1;
-  padding: 200px 0px ;
+  padding: 200px 0px;
 }
 .hero_section::after {
   content: "";
@@ -291,7 +288,7 @@ a {
   padding: 31px 0px 50px 0px;
 }
 .rechtanal-img {
-  padding: 0px 0px 20px 0px ;
+  padding: 0px 0px 20px 0px;
 }
 .rechtanal-img img {
   width: 100%;
@@ -333,10 +330,10 @@ a {
 
 .rechtanal-img:hover {
   /* border-radius: 10px; */
-  border-top-right-radius:20px ;
+  border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  border-bottom-right-radius:10px  ;
-  border-bottom-left-radius:10px ;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 /* .passionateaboutsec */
@@ -816,6 +813,7 @@ a {
   font-family: "Kumbh Sans";
 }
 .shariuimg {
+  flex-shrink: 0;
   width: 71px;
   border-radius: 50%;
   display: flex;
@@ -1237,7 +1235,7 @@ textarea {
   font-weight: 400;
   color: #6a6a6a;
   font-size: 28px;
-  margin-bottom: 0px ;
+  margin-bottom: 0px;
 }
 
 .whitetitle {
@@ -1389,7 +1387,7 @@ textarea {
   font-size: 28px;
   font-family: "Kumbh Sans";
 }
- 
+
 .addresht .boder-bottomse {
   width: 53px;
   height: 3px;
@@ -1397,7 +1395,7 @@ textarea {
   margin-top: 10px;
   background-color: #000000;
 }
- 
+
 .addresht p {
   font-weight: 400;
   color: #000000;
@@ -1408,7 +1406,7 @@ textarea {
 .dropquestion {
   text-align: end;
 }
- 
+
 .dropquestion h2 {
   font-weight: 600;
   font-size: 38px;
@@ -1416,7 +1414,7 @@ textarea {
   font-family: "Kumbh Sans";
   text-align: center;
 }
- 
+
 .dropquestion .sub-heading {
   width: 53px;
   height: 3px;
@@ -1425,7 +1423,7 @@ textarea {
   margin-bottom: 10px;
   background-color: #000000;
 }
- 
+
 .dropquestion h3 {
   font-weight: 600;
   font-size: 16px;
@@ -1446,7 +1444,7 @@ textarea {
   font-family: "Kumbh Sans";
   margin-bottom: 15px;
 }
- 
+
 .dropquestion form textarea {
   border: 1px solid #a8a8a8;
   color: #a8a8a8;
@@ -1458,7 +1456,7 @@ textarea {
   width: 100%;
   font-family: "Kumbh Sans";
 }
- 
+
 .dropquestion form .checkbox {
   display: flex;
   align-items: center;
@@ -1487,36 +1485,36 @@ textarea {
   background-color: #37a2d2;
   color: #fff;
 }
- 
+
 .buttonsdee {
   outline: none;
   box-shadow: none !important;
   border: 2px solid #37a2d2 !important;
   padding: 2px 7px !important;
 }
- 
+
 .searctitle {
   display: flex;
   align-items: center;
   gap: 20px;
 }
- 
+
 .frsgrtt button {
   display: none;
 }
 .dlidertogal .andkarsedr img {
   width: 56px;
 }
- 
+
 /* header modal code  */
- 
+
 .formtitle-boxsing h2 {
   font-weight: 800;
   font-size: 34px;
   color: #000000;
   font-family: "Kumbh Sans";
 }
- 
+
 .formtitle-boxsing form {
   max-width: 600px;
 }
@@ -1573,24 +1571,24 @@ textarea {
   max-width: 500px;
 }
 .trusted-laundry-servicesec .modal.fade .modal-dialog {
-  transition: transform .3s ease-out;
+  transition: transform 0.3s ease-out;
   transform: translate(0, 97px) !important;
 }
 
-.formtitle-boxsing{
-flex-direction: column;
-display: flex;
-gap: 10px ;
-
+.formtitle-boxsing {
+  flex-direction: column;
+  display: flex;
+  gap: 10px;
 }
- 
 
 .formtitle-boxsing form {
-  display: flex
-;
+  display: flex;
   max-width: 600px;
   gap: 10px;
   flex-direction: column;
+}
+.shirts-title p{
+  white-space: nowrap;
 }
 @media screen and (max-width: 1199px) {
   .navbar-expand-navs ul li {
@@ -1601,16 +1599,15 @@ gap: 10px ;
     font-size: 16px;
   }
 
-
-  .trusted-laundry-servicesec .modal-dialog{
+  .trusted-laundry-servicesec .modal-dialog {
     max-width: initial !important;
   }
 }
 @media screen and (max-width: 991px) {
-  .evenfaster{
+  .evenfaster {
     width: 100% !important;
   }
-  .mymobilemore-tileiocn{
+  .mymobilemore-tileiocn {
     position: initial !important;
   }
   .satrtcode .navbar {
@@ -1619,149 +1616,216 @@ gap: 10px ;
   .form-topheadre button {
     display: none;
   }
- 
+
   .frsgrtt button {
     display: block !important;
   }
- 
+
   .form-topheadre button {
     padding: 7px 19px;
     font-size: 16px;
   }
- 
+
   .navbar-expand-navs ul li:nth-child(7) a {
     margin-left: 0px !important;
   }
- 
+
   .navbar-expand-navs ul li {
     padding: 10px 7px !important;
   }
   .dlidertogal .andkarsedr img {
     width: 46px;
   }
+
+  .count-section {
+    padding: 37px 0px 37px 0px;
+}
 }
 @media screen and (max-width: 767px) {
-.show-isue-iocn{
-  display: none !important;
-}
-.chek-thishicon{
-  display: block ;
-}
-.mymobilemore-tileiocn{
-  display: none ;
-}
-.frder {
-  position: absolute;
-  bottom: 15px;
-  right: 0px;
-}
+  .show-isue-iocn {
+    display: none !important;
+  }
+  .chek-thishicon {
+    display: block;
+  }
+  .mymobilemore-tileiocn {
+    display: none;
+  }
+  .frder {
+    position: absolute;
+    bottom: 15px;
+    right: 0px;
+  }
 
-.evenfaster {
-  position: relative;
-  z-index: 999;
-  background-color: #fff;
-  width: 100%;
-  padding: 20px 30px 20px 30px;
-}
+  .evenfaster {
+    position: relative;
+    z-index: 999;
+    background-color: #fff;
+    width: 100%;
+    padding: 20px 30px 20px 30px;
+  }
 
-.rechtanal-img img {
-  height: 240px;}
+  .rechtanal-img img {
+    height: 240px;
+  }
   .jecit-shop h3 {
-    font-size: 20px;}
-    .about-color-tetx {
-      padding: 34px 20px;}
+    font-size: 20px;
+  }
+  .about-color-tetx {
+    padding: 34px 20px;
+  }
 
+  .welcometohedding h1 {
+    font-size: 25px;
+  }
 
-      .welcometohedding h1 {
-        font-size: 25px;
-}
+  .hero_section {
+    padding: 151px 0px 50px 0px;
+    background-position: center;
+  }
 
-
-
-.hero_section {
-  padding: 151px 0px 50px 0px;
-  background-position: center;
-}
-
-.about-color-tetx h3 {
-  font-size: 43px;}
+  .about-color-tetx h3 {
+    font-size: 43px;
+  }
   .about-color-tetx span {
-    font-size: 16px;}
-    .about-color-tetx p {
-      font-size: 15px;}
+    font-size: 16px;
+  }
+  .about-color-tetx p {
+    font-size: 15px;
+  }
 
-      .levtart-work-text span {
-        font-size: 31px;}
+  .levtart-work-text span {
+    font-size: 31px;
+  }
 
-        .popuilar-titletext h4 {
-          font-size: 28px;}
+  .popuilar-titletext h4 {
+    font-size: 28px;
+  }
 
-          .more-tahn-of strong {
-            font-size: 18px;}
+  .more-tahn-of strong {
+    font-size: 18px;
+  }
 
-
-            .more-tahn-of h3 {
-              font-size: 26px;}
-              .importent-title h3 {
+  .more-tahn-of h3 {
     font-size: 26px;
-}
+  }
+  .importent-title h3 {
+    font-size: 26px;
+  }
 
-.work-light-der h3 {
-  font-size: 28px;
-}
-.delivery-Collection h3 {
+  .work-light-der h3 {
+    font-size: 28px;
+  }
+  .delivery-Collection h3 {
     font-size: 29px;
     line-height: 38px;
+  }
+  /* .desivder {
+    display: none;
+  } */
 
-}
-.desivder{
-  display: none;
-}
+  .tap-clean-deliver {
+    padding: 0px 0px;
+  }
 
-.tap-clean-deliver {
-  padding: 0px 0px;
-}
+  .popular-servicesec {
+    padding: 0px 0px 0px 0px;
+  }
 
-.popular-servicesec {
-  padding: 31px 0px 0px 0px;
-}
-
-.save-titlemony h4 {
-  font-size: 26px;}
+  .save-titlemony h4 {
+    font-size: 26px;
+  }
 
   .evenfaster h3 {
-    font-size: 27px;}
+    font-size: 27px;
+  }
 
-    .evenfaster h4 {
-      font-size: 26px;}
+  .evenfaster h4 {
+    font-size: 26px;
+  }
 
-      .evenfaster p {
-        font-size: 16px;}
+  .evenfaster p {
+    font-size: 16px;
+  }
 
-        .iframeaapman iframe {
-          width: 100%;
-          height: 222px;
-      }
-      .contact-list ul{
-        padding: 0px !important;
-      }
-      .save-titlemony{
-        margin-top: 20px ;
-      }
+  .iframeaapman iframe {
+    width: 100%;
+    height: 222px;
+  }
+  .contact-list ul {
+    padding: 0px !important;
+  }
+  .save-titlemony {
+    margin-top: 20px;
+  }
 
-      .aboutus-titleuser h2 {
-        font-size: 40px;}
-      .whatareyodo h5 {
-        font-size: 26px;}
+  .aboutus-titleuser h2 {
+    font-size: 40px;
+  }
+  .whatareyodo h5 {
+    font-size: 26px;
+  }
+  .teamtitlr a {
+    font-size: 20px;
+  }
+  .pricemanan p {
+    font-size: 16px;
+  }
+  .pressingtr-for h3 {
+    font-size: 20px;
+  }
+  .blog-tile-title {
+    padding: 30px 0px 20px 0px;
+  }
+
+  .addresht {
+    height: initial;
+    margin-top: 20px;
+    padding: 14px 32px;
+  }
+  .countermain {
+    width: 100%;
+    overflow-x: auto;
+    /* flex-wrap: wrap; */
+  }
+  .counters .wjsqw {
+    font-size: 25px;
+  }
+  .coundetmain-box {
+    margin-top: 12px;
+  }
+  .shariuimg img {
+    width: 30px;
+  }
+  .shariuimg {
+    width: 54px;
+    height: 54px;
+  }
+
+  .coundetmain-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 0px 14px;
+  }
+
+  .frferfe {
+    display: none;
+  }
+  .laundry-specialistssec {
+    padding: 0px 0px 0px 0px;
+  }
+  .teamtitlr h3 {
+    font-weight: 700;
+    font-size: 25px;
+  }
 }
-
 
 @media screen and (max-width: 567px) {
   .rechtanal-img img {
-    height: 207px;}
-    .classtitme-box{
+    height: 207px;
+  }
+  .classtitme-box {
     display: block;
-    }
-
+  }
 }
- 
