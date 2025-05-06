@@ -21,6 +21,15 @@ li,
 ol {
   list-style: none;
 }
+
+
+
+.satrtcode{
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+  background-color: #fff;
+}
 a {
   display: inline-block;
   text-decoration: none !important;
@@ -114,16 +123,13 @@ a {
 }
 /* hero_section satrt code  */
 
-.hero_section {
-  padding: 100px 0px;
-}
+
 .hero_section {
   background: url("../images/hellobg-img.png") no-repeat center center;
   background-size: cover;
   position: relative;
   z-index: 1;
-  padding: 100px 0px;
-  padding: 140px 0px;
+  padding: 200px 0px ;
 }
 .hero_section::after {
   content: "";
@@ -761,11 +767,12 @@ a {
 /* .about-ussection */
 
 .about-ussection {
-  padding: 73px 0px 200px 0px;
+  padding: 132px 0px 100px 0px;
   background-size: cover;
   background-position: center;
   background-image: url("../images/aboutusbgimg.png");
 }
+
 .title-bods {
   display: flex;
   align-items: center;
@@ -1123,6 +1130,7 @@ textarea {
 .main-boxsing img {
   transition: all 0.5s;
   height: 100px;
+  object-fit: cover;
   transition: opacity 0.5s ease;
 }
 
@@ -1517,7 +1525,6 @@ select,
 textarea {
   width: 100%;
   padding: 10px;
-  margin: 10px 0;
   border: 1px solid #919191;
   font-size: 15px;
   font-family: "Kumbh Sans";
@@ -1563,9 +1570,28 @@ textarea {
   outline: none !important;
 }
 .satrtcode .modal-dialog {
-  max-width: 650px !important;
+  max-width: 500px;
+}
+.trusted-laundry-servicesec .modal.fade .modal-dialog {
+  transition: transform .3s ease-out;
+  transform: translate(0, 97px) !important;
+}
+
+.formtitle-boxsing{
+flex-direction: column;
+display: flex;
+gap: 10px ;
+
 }
  
+
+.formtitle-boxsing form {
+  display: flex
+;
+  max-width: 600px;
+  gap: 10px;
+  flex-direction: column;
+}
 @media screen and (max-width: 1199px) {
   .navbar-expand-navs ul li {
     padding: 15px 7px !important;
@@ -1574,8 +1600,19 @@ textarea {
     font-weight: 500;
     font-size: 16px;
   }
+
+
+  .trusted-laundry-servicesec .modal-dialog{
+    max-width: initial !important;
+  }
 }
 @media screen and (max-width: 991px) {
+  .evenfaster{
+    width: 100% !important;
+  }
+  .mymobilemore-tileiocn{
+    position: initial !important;
+  }
   .satrtcode .navbar {
     background-color: #fff;
   }
@@ -1604,7 +1641,127 @@ textarea {
   }
 }
 @media screen and (max-width: 767px) {
+.show-isue-iocn{
+  display: none !important;
 }
+.chek-thishicon{
+  display: block ;
+}
+.mymobilemore-tileiocn{
+  display: none ;
+}
+.frder {
+  position: absolute;
+  bottom: 15px;
+  right: 0px;
+}
+
+.evenfaster {
+  position: relative;
+  z-index: 999;
+  background-color: #fff;
+  width: 100%;
+  padding: 20px 30px 20px 30px;
+}
+
+.rechtanal-img img {
+  height: 240px;}
+  .jecit-shop h3 {
+    font-size: 20px;}
+    .about-color-tetx {
+      padding: 34px 20px;}
+
+
+      .welcometohedding h1 {
+        font-size: 25px;
+}
+
+
+
+.hero_section {
+  padding: 151px 0px 50px 0px;
+  background-position: center;
+}
+
+.about-color-tetx h3 {
+  font-size: 43px;}
+  .about-color-tetx span {
+    font-size: 16px;}
+    .about-color-tetx p {
+      font-size: 15px;}
+
+      .levtart-work-text span {
+        font-size: 31px;}
+
+        .popuilar-titletext h4 {
+          font-size: 28px;}
+
+          .more-tahn-of strong {
+            font-size: 18px;}
+
+
+            .more-tahn-of h3 {
+              font-size: 26px;}
+              .importent-title h3 {
+    font-size: 26px;
+}
+
+.work-light-der h3 {
+  font-size: 28px;
+}
+.delivery-Collection h3 {
+    font-size: 29px;
+    line-height: 38px;
+
+}
+.desivder{
+  display: none;
+}
+
+.tap-clean-deliver {
+  padding: 0px 0px;
+}
+
+.popular-servicesec {
+  padding: 31px 0px 0px 0px;
+}
+
+.save-titlemony h4 {
+  font-size: 26px;}
+
+  .evenfaster h3 {
+    font-size: 27px;}
+
+    .evenfaster h4 {
+      font-size: 26px;}
+
+      .evenfaster p {
+        font-size: 16px;}
+
+        .iframeaapman iframe {
+          width: 100%;
+          height: 222px;
+      }
+      .contact-list ul{
+        padding: 0px !important;
+      }
+      .save-titlemony{
+        margin-top: 20px ;
+      }
+
+      .aboutus-titleuser h2 {
+        font-size: 40px;}
+      .whatareyodo h5 {
+        font-size: 26px;}
+}
+
+
 @media screen and (max-width: 567px) {
+  .rechtanal-img img {
+    height: 207px;}
+    .classtitme-box{
+    display: block;
+    }
+
 }
  

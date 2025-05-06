@@ -24,7 +24,6 @@
         {% for product in products %}
         <div class="item">
 
-
           <div class="text-centerhum mt-4">
             <div class="text-center main-boxsing">
               <img src="{{product.image}}" width="114px" alt="">
@@ -60,7 +59,7 @@
 <section class="picesection-2">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-7">
+      <div class="col-12 col-md-6 col-lg-6 col-xl-7">
         <div class="teamtitlr text-center">
           <span>[ Our Service Prices ]</span>
           <h3>Full Price Table</h3>
@@ -74,7 +73,7 @@
     </div>
     <div class="row mt-5">
 
-      <div class="col-6">
+      <div class="col-12 col-md-6 col-lg-6 col-xl-6">
         <div class="shirtlaunderand mt-4">
           {% for product in left_column %}
           <div class="pricemanan {% if forloop.counter0|divisibleby:2 %}whitetitle{% endif %}">
@@ -87,7 +86,7 @@
         </div>
       </div>
 
-      <div class="col-6">
+      <div class="col-12 col-md-6 col-lg-6 col-xl-6">
         <div class="shirtlaunderand mt-4">
           {% for product in right_column %}
           <div class="pricemanan {% if forloop.counter0|divisibleby:2 %}whitetitle{% endif %}">
@@ -203,7 +202,7 @@
 
       responsive: {
         0: {
-          items: 1 // 1 item between 0px and 599px
+          items: 2 // 1 item between 0px and 599px
         },
         600: {
           items: 2 // 2 items between 600px and 999px
