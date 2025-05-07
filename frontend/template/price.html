@@ -8,7 +8,7 @@
       <div class="title-bods">
         <a href="#">home</a>
         <a href="#">/</a>
-        <a href="#"> Prices </a>
+        <a href="/price"> Prices </a>
       </div>
       <div class="aboutus-titleuser">
         <h2>Prices</h2>
@@ -20,10 +20,8 @@
   <div class="container">
     <div class="home-demo">
       <div class="owl-carousel owl-theme oarousel">
-
         {% for product in products %}
         <div class="item">
-
           <div class="text-centerhum mt-4">
             <div class="text-center main-boxsing">
               <img src="{{product.image}}" width="114px" alt="">
@@ -39,23 +37,12 @@
               </div>
             </div>
           </div>
-
         </div>
         {% endfor %}
-
-
       </div>
     </div>
-
-
-
-
-
   </div>
-
-
 </section>
-
 <section class="picesection-2">
   <div class="container">
     <div class="row justify-content-center">
@@ -64,15 +51,11 @@
           <span>[ Our Service Prices ]</span>
           <h3>Full Price Table</h3>
           <p>Laundry service pricing is volume based. Give us a call to review pricing and services today!</p>
-
-
           <a href="#">Most Popular Items</a>
-
         </div>
       </div>
     </div>
     <div class="row mt-5">
-
       <div class="col-12 col-md-6 col-lg-6 col-xl-6">
         <div class="shirtlaunderand mt-4">
           {% for product in left_column %}
@@ -85,7 +68,6 @@
           {% endfor %}
         </div>
       </div>
-
       <div class="col-12 col-md-6 col-lg-6 col-xl-6">
         <div class="shirtlaunderand mt-4">
           {% for product in right_column %}
@@ -98,61 +80,9 @@
           {% endfor %}
         </div>
       </div>
-
-      <!-- <div class="col-6">
-        <div class="shirtlaunderand mt-4">
-          <div class="pricemanan">
-            <p>Shirt (Launder and Press)</p>
-            <p>₹65.00</p>
-          </div>
-          <div class="pricemanan whitetitle">
-            <p>Blouse</p>
-            <p>₹45.00</p>
-          </div>
-          <div class="pricemanan">
-            <p>Coat</p>
-            <p>₹35.00</p>
-          </div>
-          <div class="pricemanan whitetitle">
-            <p>Dress</p>
-            <p>₹22.00</p>
-          </div>
-          <div class="pricemanan">
-            <p>Coat</p>
-            <p>₹35.00</p>
-          </div>
-        </div>
-
-      </div> -->
-
-      <!-- <div class="col-6">
-        <div class="shirtlaunderand mt-4">
-          <div class="pricemanan">
-            <p>Pants</p>
-            <p>₹65.00</p>
-          </div>
-          <div class="pricemanan whitetitle">
-            <p>Polo</p>
-            <p>₹45.00</p>
-          </div>
-          <div class="pricemanan">
-            <p>Sport Jacket</p>
-            <p>₹35.00</p>
-          </div>
-          <div class="pricemanan whitetitle">
-            <p>Sweater</p>
-            <p>₹22.00</p>
-          </div>
-          <div class="pricemanan">
-            <p>Suit (Jacket + Pants)</p>
-            <p>₹65.00</p>
-          </div>
-        </div> -->
-
     </div>
   </div>
   </div>
 </section>
-
 </div>
 {% endblock %}

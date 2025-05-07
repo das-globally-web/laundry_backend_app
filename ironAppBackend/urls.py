@@ -24,14 +24,19 @@ from frontend.views.aboutview import aboutus
 from frontend.views.serviceview import service
 from frontend.views.priceview import price
 from frontend.views.contactus import contactUs
-from frontend.views.blogview import blog
+from frontend.views.blogview import blog, blogsByCategory
+from frontend.views.login import login, verify_otp, signup_view
 urlpatterns = [
     path('', home, name='home'),
+    path("login/", login, name="login"),
+    path("register/", signup_view, name="register"),
+    path("verify-otp/",verify_otp, name="verify_otp"),
     path('aboutus', aboutus, name='aboutus'),
     path('service', service, name="service"),
     path("price", price, name="price"),
     path("contactus", contactUs, name="contactus"),
-    path("blogs", blog, name="blog"),
+    path("blog", blog, name="blog"),
+    path("blog/<str:id>", blogsByCategory, name="blog_by_category"),
     path('api/', include('users.urls')),
     path('api/', include('banners.urls')),
     path('api/', include('service.urls')),

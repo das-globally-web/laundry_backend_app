@@ -1297,6 +1297,12 @@ textarea {
   margin-top: 30px;
 }
 
+.clwnetertitle-box  ul li a{
+  color: #000000;
+  font-family: "Kumbh Sans";
+
+}
+
 .clwnetertitle-box ul li {
   font-family: "Kumbh Sans";
   color: #000000;
@@ -1507,10 +1513,9 @@ textarea {
 }
 
 /* header modal code  */
-
 .formtitle-boxsing h2 {
   font-weight: 800;
-  font-size: 34px;
+  font-size: 30px;
   color: #000000;
   font-family: "Kumbh Sans";
 }
@@ -1590,7 +1595,126 @@ textarea {
 .shirts-title p{
   white-space: nowrap;
 }
+
+ 
+/* login code satrt  */
+ 
+.derrwrfewrer{
+  background-image: url("../images/bacgidhyt.png");
+padding: 30px 0px;
+}
+.border-login{
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #C7C7C7;
+}
+.containersder {
+  text-align: center;
+  padding: 40px 60px ;
+}
+.dwedwedew img{
+  width: 427px;
+  height: 527px;
+  margin: 0 auto;
+  display: block;
+}
+.containersder h2 {
+  font-size: 30px;
+  font-weight: 700;
+  font-family: "Kumbh Sans";
+  margin-bottom: 10px;
+}
+ 
+.derrwrfewrer {
+  position: relative;
+}
+.lightsde{
+  width: 79px;
+  height: 79px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 66%;
+    left: 50px;
+}
+ 
+.derrwrfewrer h3{
+  font-weight: 700;
+  color:#000000;
+  font-size: 32px;
+  color: #000000;
+  width: 184px;
+position: absolute;  
+top: 0px;
+transform: translate(173px, 132px);
+}
+ 
+.containersder p {
+  font-size: 12px;
+  font-weight: 400;
+  font-size: 16px;
+  color: #525252;
+  font-family: "Kumbh Sans";
+ 
+  margin-bottom: 20px;
+}
+.containersder  input {
+  font-weight: 400;
+  font-size: 15px;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  font-family: "Kumbh Sans";
+ 
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 16px;
+  background-color: #F0EDFFCC;
+ 
+}
+ 
+.containersder  input::placeholder{
+  color: #000000;
+}
+.containersder button {
+  padding: 10px 20px;
+  background: linear-gradient(to right, #6AC8F2, #37A2D2);
+  border: none;
+  border-radius: 16px;
+  color: white;
+  font-family: "Kumbh Sans";
+ 
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+}
+.containersder button:hover {
+  background: linear-gradient(to right, #0d91d0, #2dbbe3);
+}
+ 
+.logincodesatrt{
+  padding: 40px 0px ;
+}
+.containersder{
+  text-align: center;
+}
+ 
+ 
+/* login code end  */
+ 
+
+
+
+
 @media screen and (max-width: 1199px) {
+  .dwedwedew img {
+    width: 100%;
+   height: initial;}
   .navbar-expand-navs ul li {
     padding: 15px 7px !important;
   }
@@ -1642,6 +1766,29 @@ textarea {
 }
 }
 @media screen and (max-width: 767px) {
+
+  .logi-row{
+    flex-direction: column-reverse;
+  }
+  .derrwrfewrer h3 {
+    font-size: 19px;
+    width: 161px;
+  }
+    .dwedwedew img {
+      width: 60%;
+  height: initial;}
+  .derrwrfewrer h3 {
+    transform: translate(90px, 45px);
+  }
+   
+  .lightsde {
+    width: 57px;
+    height: 57px;}
+    .lightsde img{
+      width: 56%;}
+
+
+
   .show-isue-iocn {
     display: none !important;
   }
@@ -1825,6 +1972,17 @@ textarea {
   }
   .navbar-expand-navs ul li:nth-child(8){
     display: none;
+  }
+
+  .dlidertogal .modal-header {
+    padding: 9px 11px;
+  }
+
+  .formtitle-boxsing h2 {
+    font-size: 20px;}
+
+    .servicepages-11 {
+      padding: 20px 0px;
   }
 }
 

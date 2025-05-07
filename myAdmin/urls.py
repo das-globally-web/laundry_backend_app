@@ -6,7 +6,11 @@ from .views.productService import addProduct, allProducts, deleteProduct, editPr
 from .views.ordersviews import allOrders
 from .views.slotview import create_slot, list_slots
 from .views.staffview import addstaff_user, editstaff_user, get_staff
+from categoryBlog.views import add_category_view
+from blog.view import add_blog_view
 urlpatterns = [
+    path("add-blog/", add_blog_view, name="add_blog_view"),
+    path('add-category/', add_category_view, name='add_category'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('dashboard/', dashboard_view, name='dashboard'),
