@@ -1826,6 +1826,17 @@ textarea {
   .navbar-expand-navs ul li:nth-child(8){
     display: none;
   }
+
+  .dlidertogal .modal-header {
+    padding: 9px 11px;
+  }
+
+  .formtitle-boxsing h2 {
+    font-size: 20px;}
+
+    .servicepages-11 {
+      padding: 20px 0px;
+  }
 }
 
 @media screen and (max-width: 567px) {
