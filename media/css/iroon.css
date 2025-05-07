@@ -1819,6 +1819,13 @@ textarea {
     font-weight: 700;
     font-size: 25px;
   }
+
+  .navbar-expand-navs ul li:nth-child(7){
+    display: none;
+  }
+  .navbar-expand-navs ul li:nth-child(8){
+    display: none;
+  }
 }
 
 @media screen and (max-width: 567px) {
