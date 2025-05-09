@@ -4,5 +4,18 @@ from django.shortcuts import render
 
 
 def aboutus(request):
+    phone = request.session.get('phone', None)
+    name = request.session.get('name', None)
+    address = request.session.get('address', None)
+    is_login = request.session.get('isLogin', False)
+    userid = request.session.get('id', None)
 
-    return render(request, 'aboutus.html' )
+    context = {
+        'id': userid,
+        'phone': phone,
+        'name': name,
+        'address': address,
+        'is_login': is_login
+    }
+ 
+    return render(request,'aboutus.html' , { 'context': context, 'product': ProductTable.objects.all().order_by('-id')})

@@ -1,4 +1,5 @@
 import os
+from bson import ObjectId
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
@@ -15,6 +16,8 @@ def send_otp(phone_number, otp):
     return response.status_code == 200
 
 def login(request):
+    request.session.clear()
+
     if request.method == "POST":
         phone = request.POST.get("phone")
         user = User.objects.get(phone_number=phone)
@@ -26,8 +29,6 @@ def login(request):
             if not success:
                 return render(request, "loginuser.html", {"error": "OTP send failed. Try again."})
             return render(request, "verify_otp.html", {"phone": phone})
-        
-
         else:
             return redirect('register')
    
@@ -39,6 +40,12 @@ def verify_otp(request):
         session_otp = request.session.get("otp")
         if user_input_otp == session_otp:
             phone = request.session.get("phone")
+            finduser = User.objects.get(phone_number=phone)
+            request.session['phone'] = phone
+            request.session['id'] = str(ObjectId(finduser.id))
+            request.session['name'] = finduser.name
+            request.session['address'] = finduser.current_address
+            request.session['isLogin'] = True
             # login success, redirect to home
             return redirect("/")  # make sure `home` is defined in urls
         else:

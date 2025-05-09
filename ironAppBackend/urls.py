@@ -27,6 +27,7 @@ from frontend.views.contactus import contactUs
 from frontend.views.blogview import blog, blogsByCategory
 from frontend.views.login import login, verify_otp, signup_view
 urlpatterns = [
+    # this all Website aroute inculde main website
     path('', home, name='home'),
     path("login/", login, name="login"),
     path("register/", signup_view, name="register"),
@@ -37,6 +38,9 @@ urlpatterns = [
     path("contactus", contactUs, name="contactus"),
     path("blog", blog, name="blog"),
     path("blog/<str:id>", blogsByCategory, name="blog_by_category"),
+
+    # before this include the upper code was for main website route
+
     path('api/', include('users.urls')),
     path('api/', include('banners.urls')),
     path('api/', include('service.urls')),
