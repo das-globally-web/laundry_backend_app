@@ -85,7 +85,14 @@
           <a class="navbar-brand andkarsedr" href="/"><img src="/media/images/logo-project.svg" alt="ironissue" /></a>
           <div class="searctitle">
             <div class="d-flex frsgrtt form-topheadre" data-bs-toggle="modal" data-bs-target="#exampleModaledfr">
-              <button class="btn" type="submit">Schedule a pickup</button>
+               {% if context.is_login %}
+              <button class="btn" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Schedule a
+                pickup</button>
+              {% else %}
+              <div class="form-login">
+                <a href="/login"><i class="fa-solid fa-user"></i> Log In</a>
+              </div>
+              {% endif %}
             </div>
 
             <!-- Modal -->
