@@ -94,31 +94,54 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header modealsong">
+                    <h5 class="modal-title">Schedule a Pickup</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <div class="formtitle-boxsing">
-                      <h2>Schedule a pickup</h2>
-                      <form>
-                        <input type="text" placeholder="Your Name*" required>
-                        <div class="rowse">
-                          <input type="email" placeholder="Your Email Address*" required>
-                          <input type="tel" placeholder="Your Phone Number">
+                    <div>
+                      <p>Your Name*</p>
+                      <input type="text" name="name" placeholder="Your Name*" required class="form-control my-2"
+                        value="{{context.name}}">
+                      <p>Phone*</p>
+                      <input type="tel" name="phone" placeholder="Your Phone Number" required class="form-control"
+                        value="{{context.phone}}">
+                      <p>Address*</p>
+                      <input type="text" name="address" placeholder="Address*" required class="form-control my-2"
+                        value="{{context.address}}">
+                      <p>Choose Product*</p>
+                      <div id="product-list">
+                        {% for pro in product %}
+                        {% for item in pro.price_json %}
+                        <div class="product-row" data-id="{{ pro.id }}" data-title="{{ pro.title }}"
+                          data-service="{{ item|jsonify }}" data-price="{{ item.price }}">
+                          <div class="product-name">{{ pro.title }}</div>
+                          <div class="quantity-controls">
+                            <button type="button" class="decrease">-</button>
+                            <span class="quantity">0</span>
+                            <button type="button" class="increase">+</button>
+                          </div>
+                          <div class="product-price">₹{{ item.price }}</div>
                         </div>
-                        <input type="text" placeholder="Address*" required>
-                        <select required>
-                          <option value="">Service*</option>
-                          <option value="dry-cleaning">Dry Cleaning</option>
-                          <option value="laundry">Laundry</option>
-                          <option value="ironing">Ironing</option>
-                        </select>
-                        <div class="date-row">
-                          <input type="date" placeholder="Pick Up Date">
-                          <input type="date" placeholder="Delivery Date">
-                        </div>
-                        <textarea placeholder="Your Comment"></textarea>
-                        <button type="submit">Order Now</button>
-                      </form>
+                        {% endfor %}
+                        {% endfor %}
+                      </div>
+                      <div class="total">
+                        Total: ₹<span id="total-price">0</span>
+                      </div>
+                      <label class="mt-3">Pickup Date</label>
+                      <input type="date" name="pickup_date" id="pickupDate" class="form-control mb-2" required>
+                      <label>Pickup Slot</label>
+                      <select name="pickup_slot" id="pickupSlot" class="form-select mb-2" required>
+                        <option value="">Select Pickup Slot</option>
+                      </select>
+                      <label>Drop Slot</label>
+                      <select name="drop_slot" id="dropSlot" class="form-select mb-2" required>
+                        <option value="">Select Drop Slot</option>
+                      </select>
+                      <input type="hidden" name="selected_items" id="selected-items">
+                      <input type="hidden" id="userId" value="{{ context.id }}">
+                      <button id="mysubmitbtn" class="btn btn-primary w-100 on">Order
+                        Now</button>
                     </div>
                   </div>
                 </div>
@@ -334,219 +357,219 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-  const rows = document.querySelectorAll(".product-row");
-  const totalPriceEl = document.getElementById("total-price");
-  const selectedItemsInput = document.getElementById("selected-items");
-  const pickupSlotSelect = document.getElementById("pickupSlot");
-  const dropSlotSelect = document.getElementById("dropSlot");
-  const pickupDateInput = document.getElementById("pickupDate");
-  const submitBtn = document.getElementById("mysubmitbtn"); // Correct ID
+      const rows = document.querySelectorAll(".product-row");
+      const totalPriceEl = document.getElementById("total-price");
+      const selectedItemsInput = document.getElementById("selected-items");
+      const pickupSlotSelect = document.getElementById("pickupSlot");
+      const dropSlotSelect = document.getElementById("dropSlot");
+      const pickupDateInput = document.getElementById("pickupDate");
+      const submitBtn = document.getElementById("mysubmitbtn"); // Correct ID
 
-  // Populate pickup slots
-  const dropSlotMapping = {
-    "6:00 AM - 7:00 AM": [
-      { from: "4:00 PM", to: "5:00 PM", dayOffset: 0 },
-      { from: "7:00 PM", to: "8:00 PM", dayOffset: 0 },
-      { from: "6:00 AM", to: "7:00 AM", dayOffset: 1 },
-      { from: "9:00 AM", to: "10:00 AM", dayOffset: 1 },
-    ],
-    "9:00 AM - 10:00 AM": [
-      { from: "7:00 PM", to: "8:00 PM", dayOffset: 0 },
-      { from: "6:00 AM", to: "7:00 AM", dayOffset: 1 },
-      { from: "9:00 AM", to: "10:00 AM", dayOffset: 1 },
-      { from: "4:00 PM", to: "5:00 PM", dayOffset: 1 },
-    ],
-    "4:00 PM - 5:00 PM": [
-      { from: "6:00 AM", to: "7:00 AM", dayOffset: 1 },
-      { from: "9:00 AM", to: "10:00 AM", dayOffset: 1 },
-      { from: "4:00 PM", to: "5:00 PM", dayOffset: 1 },
-      { from: "7:00 PM", to: "8:00 PM", dayOffset: 1 },
-    ],
-    "7:00 PM - 8:00 PM": [
-      { from: "9:00 AM", to: "10:00 AM", dayOffset: 1 },
-      { from: "4:00 PM", to: "5:00 PM", dayOffset: 1 },
-      { from: "7:00 PM", to: "8:00 PM", dayOffset: 1 },
-      { from: "6:00 AM", to: "7:00 AM", dayOffset: 2 },
-    ],
-  };
+      // Populate pickup slots
+      const dropSlotMapping = {
+        "6:00 AM - 7:00 AM": [
+          { from: "4:00 PM", to: "5:00 PM", dayOffset: 0 },
+          { from: "7:00 PM", to: "8:00 PM", dayOffset: 0 },
+          { from: "6:00 AM", to: "7:00 AM", dayOffset: 1 },
+          { from: "9:00 AM", to: "10:00 AM", dayOffset: 1 },
+        ],
+        "9:00 AM - 10:00 AM": [
+          { from: "7:00 PM", to: "8:00 PM", dayOffset: 0 },
+          { from: "6:00 AM", to: "7:00 AM", dayOffset: 1 },
+          { from: "9:00 AM", to: "10:00 AM", dayOffset: 1 },
+          { from: "4:00 PM", to: "5:00 PM", dayOffset: 1 },
+        ],
+        "4:00 PM - 5:00 PM": [
+          { from: "6:00 AM", to: "7:00 AM", dayOffset: 1 },
+          { from: "9:00 AM", to: "10:00 AM", dayOffset: 1 },
+          { from: "4:00 PM", to: "5:00 PM", dayOffset: 1 },
+          { from: "7:00 PM", to: "8:00 PM", dayOffset: 1 },
+        ],
+        "7:00 PM - 8:00 PM": [
+          { from: "9:00 AM", to: "10:00 AM", dayOffset: 1 },
+          { from: "4:00 PM", to: "5:00 PM", dayOffset: 1 },
+          { from: "7:00 PM", to: "8:00 PM", dayOffset: 1 },
+          { from: "6:00 AM", to: "7:00 AM", dayOffset: 2 },
+        ],
+      };
 
-  Object.keys(dropSlotMapping).forEach((slot) => {
-    const option = document.createElement("option");
-    option.value = slot;
-    option.textContent = slot;
-    pickupSlotSelect.appendChild(option);
-  });
+      Object.keys(dropSlotMapping).forEach((slot) => {
+        const option = document.createElement("option");
+        option.value = slot;
+        option.textContent = slot;
+        pickupSlotSelect.appendChild(option);
+      });
 
-  function updateDropSlots() {
-    const selectedPickupSlot = pickupSlotSelect.value;
-    const pickupDate = new Date(pickupDateInput.value);
-    dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
+      function updateDropSlots() {
+        const selectedPickupSlot = pickupSlotSelect.value;
+        const pickupDate = new Date(pickupDateInput.value);
+        dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
 
-    if (!selectedPickupSlot || isNaN(pickupDate.getTime())) return;
+        if (!selectedPickupSlot || isNaN(pickupDate.getTime())) return;
 
-    const dropOptions = dropSlotMapping[selectedPickupSlot];
-    dropOptions.forEach(({ from, to, dayOffset }) => {
-      const dropDate = new Date(pickupDate);
-      dropDate.setDate(dropDate.getDate() + dayOffset);
-      const formattedDate = dropDate.toISOString().split("T")[0];
-      const label = `${from} - ${to} (${formattedDate})`;
+        const dropOptions = dropSlotMapping[selectedPickupSlot];
+        dropOptions.forEach(({ from, to, dayOffset }) => {
+          const dropDate = new Date(pickupDate);
+          dropDate.setDate(dropDate.getDate() + dayOffset);
+          const formattedDate = dropDate.toISOString().split("T")[0];
+          const label = `${from} - ${to} (${formattedDate})`;
 
-      const option = document.createElement("option");
-      option.value = label;
-      option.textContent = label;
-      dropSlotSelect.appendChild(option);
-    });
-  }
-
-  pickupSlotSelect.addEventListener("change", updateDropSlots);
-  pickupDateInput.addEventListener("change", updateDropSlots);
-
-  function updateTotal() {
-    let total = 0;
-    rows.forEach((row) => {
-      const price = parseFloat(row.dataset.price);
-      const qty = parseInt(row.querySelector(".quantity").textContent);
-      total += price * qty;
-    });
-    totalPriceEl.textContent = total.toFixed(2);
-  }
-
-  rows.forEach((row) => {
-    const increaseBtn = row.querySelector(".increase");
-    const decreaseBtn = row.querySelector(".decrease");
-    const qtyEl = row.querySelector(".quantity");
-
-    increaseBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      qtyEl.textContent = parseInt(qtyEl.textContent) + 1;
-      updateTotal();
-    });
-
-    decreaseBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const currentQty = parseInt(qtyEl.textContent);
-      if (currentQty > 0) {
-        qtyEl.textContent = currentQty - 1;
-        updateTotal();
+          const option = document.createElement("option");
+          option.value = label;
+          option.textContent = label;
+          dropSlotSelect.appendChild(option);
+        });
       }
-    });
-  });
 
-  async function submitData() {
-    const name = document.querySelector("input[name='name']").value;
-    const phone = document.querySelector("input[name='phone']").value;
-    const address = document.querySelector("input[name='address']").value;
-    const pickupDate = pickupDateInput.value;
-    const pickupSlot = pickupSlotSelect.value;
-    const dropSlot = dropSlotSelect.value;
-    const userId = document.getElementById("userId").value;
+      pickupSlotSelect.addEventListener("change", updateDropSlots);
+      pickupDateInput.addEventListener("change", updateDropSlots);
 
-    if (!name || !phone || !address || !pickupDate || !pickupSlot || !dropSlot) {
-      alert("Please fill in all required fields, including pickup and drop slots.");
-      submitBtn.disabled = false;
-      return;
-    }
+      function updateTotal() {
+        let total = 0;
+        rows.forEach((row) => {
+          const price = parseFloat(row.dataset.price);
+          const qty = parseInt(row.querySelector(".quantity").textContent);
+          total += price * qty;
+        });
+        totalPriceEl.textContent = total.toFixed(2);
+      }
 
-    // Collect selected items
-    const selectedItems = [];
-    let totalAmount = 0;
+      rows.forEach((row) => {
+        const increaseBtn = row.querySelector(".increase");
+        const decreaseBtn = row.querySelector(".decrease");
+        const qtyEl = row.querySelector(".quantity");
 
-    rows.forEach((row) => {
-      const qty = parseInt(row.querySelector(".quantity").textContent);
-      if (qty > 0) {
-        const serviceData = row.dataset.service;
-        const price = parseFloat(row.dataset.price);
-        let serviceObj = {};
+        increaseBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          qtyEl.textContent = parseInt(qtyEl.textContent) + 1;
+          updateTotal();
+        });
 
-        try {
-          serviceObj = JSON.parse(serviceData); // Assume data-service is valid JSON
-        } catch (err) {
-          console.error("Invalid service JSON:", serviceData, err);
-          alert("Error processing product data. Please try again.");
+        decreaseBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const currentQty = parseInt(qtyEl.textContent);
+          if (currentQty > 0) {
+            qtyEl.textContent = currentQty - 1;
+            updateTotal();
+          }
+        });
+      });
+
+      async function submitData() {
+        const name = document.querySelector("input[name='name']").value;
+        const phone = document.querySelector("input[name='phone']").value;
+        const address = document.querySelector("input[name='address']").value;
+        const pickupDate = pickupDateInput.value;
+        const pickupSlot = pickupSlotSelect.value;
+        const dropSlot = dropSlotSelect.value;
+        const userId = document.getElementById("userId").value;
+
+        if (!name || !phone || !address || !pickupDate || !pickupSlot || !dropSlot) {
+          alert("Please fill in all required fields, including pickup and drop slots.");
+          submitBtn.disabled = false;
           return;
         }
 
-        selectedItems.push({
-          product_id: row.dataset.id,
-          chosed_service: serviceObj,
-          quantity: qty,
-        });
+        // Collect selected items
+        const selectedItems = [];
+        let totalAmount = 0;
 
-        totalAmount += price * qty;
-      }
-    });
-
-    if (selectedItems.length === 0) {
-      alert("Please select at least one product.");
-      submitBtn.disabled = false;
-      return;
-    }
-
-    // Populate hidden input
-    selectedItemsInput.value = JSON.stringify(selectedItems);
-
-    // Prepare payload
-    const trxId = "txn_" + Date.now();
-    const paymentType = "cash";
-
-    const payload = {
-      userid: userId,
-      trx_id: trxId,
-      payment_typ: paymentType,
-      product: selectedItems,
-      total_booked_amount: totalAmount,
-      iroing: false,
-      deliverd: false,
-      address: address,
-      latitude: "28.6448",
-      longitude: "77.216721",
-      delivery_slot: dropSlot,
-      pickup_slot: pickupSlot,
-      pickup_date: pickupDate,
-    };
-
-    console.log("Payload:", payload);
-
-    try {
-      const res = await fetch("/api/create-order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        alert("Order placed successfully!");
-        // Reset form
-        document.querySelector("input[name='name']").value = "";
-        document.querySelector("input[name='phone']").value = "";
-        document.querySelector("input[name='address']").value = "";
-        pickupDateInput.value = "";
-        pickupSlotSelect.value = "";
-        dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
-        totalPriceEl.textContent = "0";
         rows.forEach((row) => {
-          row.querySelector(".quantity").textContent = "0";
-        });
-      } else {
-        console.error("API Error:", data);
-        alert("Failed to place order: " + (data.message || "Unknown error"));
-      }
-    } catch (err) {
-      console.error("Network Error:", err);
-      alert("Network error! Please check your connection and try again.");
-    } finally {
-      submitBtn.disabled = false;
-    }
-  }
+          const qty = parseInt(row.querySelector(".quantity").textContent);
+          if (qty > 0) {
+            const serviceData = row.dataset.service;
+            const price = parseFloat(row.dataset.price);
+            let serviceObj = {};
 
-  submitBtn.addEventListener("click", () => {
-    submitBtn.disabled = true;
-    submitData();
-  });
-});
+            try {
+              serviceObj = JSON.parse(serviceData); // Assume data-service is valid JSON
+            } catch (err) {
+              console.error("Invalid service JSON:", serviceData, err);
+              alert("Error processing product data. Please try again.");
+              return;
+            }
+
+            selectedItems.push({
+              product_id: row.dataset.id,
+              chosed_service: serviceObj,
+              quantity: qty,
+            });
+
+            totalAmount += price * qty;
+          }
+        });
+
+        if (selectedItems.length === 0) {
+          alert("Please select at least one product.");
+          submitBtn.disabled = false;
+          return;
+        }
+
+        // Populate hidden input
+        selectedItemsInput.value = JSON.stringify(selectedItems);
+
+        // Prepare payload
+        const trxId = "txn_" + Date.now();
+        const paymentType = "cash";
+
+        const payload = {
+          userid: userId,
+          trx_id: trxId,
+          payment_typ: paymentType,
+          product: selectedItems,
+          total_booked_amount: totalAmount,
+          iroing: false,
+          deliverd: false,
+          address: address,
+          latitude: "28.6448",
+          longitude: "77.216721",
+          delivery_slot: dropSlot,
+          pickup_slot: pickupSlot,
+          pickup_date: pickupDate,
+        };
+
+        console.log("Payload:", payload);
+
+        try {
+          const res = await fetch("/api/create-order", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await res.json();
+          if (res.ok) {
+            alert("Order placed successfully!");
+            // Reset form
+            document.querySelector("input[name='name']").value = "";
+            document.querySelector("input[name='phone']").value = "";
+            document.querySelector("input[name='address']").value = "";
+            pickupDateInput.value = "";
+            pickupSlotSelect.value = "";
+            dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
+            totalPriceEl.textContent = "0";
+            rows.forEach((row) => {
+              row.querySelector(".quantity").textContent = "0";
+            });
+          } else {
+            console.error("API Error:", data);
+            alert("Failed to place order: " + (data.message || "Unknown error"));
+          }
+        } catch (err) {
+          console.error("Network Error:", err);
+          alert("Network error! Please check your connection and try again.");
+        } finally {
+          submitBtn.disabled = false;
+        }
+      }
+
+      submitBtn.addEventListener("click", () => {
+        submitBtn.disabled = true;
+        submitData();
+      });
+    });
   </script>
 </body>
 
