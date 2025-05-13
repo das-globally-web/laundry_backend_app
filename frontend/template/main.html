@@ -361,103 +361,114 @@
   </script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const rows = document.querySelectorAll(".product-row");
-      const totalPriceEl = document.getElementById("total-price");
-      const selectedItemsInput = document.getElementById("selected-items");
+    document.addEventListener("DOMContentLoaded", function() {
+      // Slot functionality
       const pickupSlotSelect = document.getElementById("pickupSlot");
       const dropSlotSelect = document.getElementById("dropSlot");
       const pickupDateInput = document.getElementById("pickupDate");
-      const submitBtn = document.getElementById("mysubmitbtn"); // Correct ID
-
-      // Populate pickup slots
+      
+      // Define pickup slots
       const pickupSlots = [
         "6:00 AM - 7:00 AM",
         "9:00 AM - 10:00 AM",
         "4:00 PM - 5:00 PM",
         "7:00 PM - 8:00 PM"
       ];
-
+      
+      // Define drop slot mapping
       const dropSlotMapping = {
         "6:00 AM - 7:00 AM": [
-          { from: "4:00 PM", to: "5:00 PM", dayOffset: 1 },
-          { from: "7:00 PM", to: "8:00 PM", dayOffset: 1 },
-          { from: "6:00 AM", to: "7:00 AM", dayOffset: 2 },
-          { from: "9:00 AM", to: "10:00 AM", dayOffset: 2 },
+          { time: "4:00 PM - 5:00 PM", daysLater: 1 },
+          { time: "7:00 PM - 8:00 PM", daysLater: 1 },
+          { time: "6:00 AM - 7:00 AM", daysLater: 2 },
+          { time: "9:00 AM - 10:00 AM", daysLater: 2 }
         ],
         "9:00 AM - 10:00 AM": [
-          { from: "7:00 PM", to: "8:00 PM", dayOffset: 1 },
-          { from: "6:00 AM", to: "7:00 AM", dayOffset: 2 },
-          { from: "9:00 AM", to: "10:00 AM", dayOffset: 2 },
-          { from: "4:00 PM", to: "5:00 PM", dayOffset: 2 },
+          { time: "7:00 PM - 8:00 PM", daysLater: 1 },
+          { time: "6:00 AM - 7:00 AM", daysLater: 2 },
+          { time: "9:00 AM - 10:00 AM", daysLater: 2 },
+          { time: "4:00 PM - 5:00 PM", daysLater: 2 }
         ],
         "4:00 PM - 5:00 PM": [
-          { from: "6:00 AM", to: "7:00 AM", dayOffset: 2 },
-          { from: "9:00 AM", to: "10:00 AM", dayOffset: 2 },
-          { from: "4:00 PM", to: "5:00 PM", dayOffset: 2 },
-          { from: "7:00 PM", to: "8:00 PM", dayOffset: 2 },
+          { time: "6:00 AM - 7:00 AM", daysLater: 2 },
+          { time: "9:00 AM - 10:00 AM", daysLater: 2 },
+          { time: "4:00 PM - 5:00 PM", daysLater: 2 },
+          { time: "7:00 PM - 8:00 PM", daysLater: 2 }
         ],
         "7:00 PM - 8:00 PM": [
-          { from: "9:00 AM", to: "10:00 AM", dayOffset: 2 },
-          { from: "4:00 PM", to: "5:00 PM", dayOffset: 2 },
-          { from: "7:00 PM", to: "8:00 PM", dayOffset: 2 },
-          { from: "6:00 AM", to: "7:00 AM", dayOffset: 3 },
-        ],
+          { time: "9:00 AM - 10:00 AM", daysLater: 2 },
+          { time: "4:00 PM - 5:00 PM", daysLater: 2 },
+          { time: "7:00 PM - 8:00 PM", daysLater: 2 },
+          { time: "6:00 AM - 7:00 AM", daysLater: 3 }
+        ]
       };
-
-      // Populate pickup slots
-      pickupSlots.forEach((slot) => {
-        const option = document.createElement("option");
-        option.value = slot;
-        option.textContent = slot;
-        pickupSlotSelect.appendChild(option);
-      });
-
+      
+      // Initialize pickup slots
+      function initPickupSlots() {
+        pickupSlotSelect.innerHTML = '<option value="">Select Pickup Slot</option>';
+        pickupSlots.forEach(slot => {
+          const option = document.createElement('option');
+          option.value = slot;
+          option.textContent = slot;
+          pickupSlotSelect.appendChild(option);
+        });
+      }
+      
+      // Update drop slots based on pickup selection
       function updateDropSlots() {
         const selectedPickupSlot = pickupSlotSelect.value;
-        const pickupDate = new Date(pickupDateInput.value);
-
+        const pickupDate = pickupDateInput.value;
+        
         // Clear existing options
         dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
-
-        if (!selectedPickupSlot || isNaN(pickupDate.getTime())) {
-          return;
-        }
-
-        const dropOptions = dropSlotMapping[selectedPickupSlot];
-
-        if (!dropOptions) {
-          console.error("No drop options found for selected pickup slot");
-          return;
-        }
-
-        dropOptions.forEach(({ from, to, dayOffset }) => {
-          const dropDate = new Date(pickupDate);
-          dropDate.setDate(dropDate.getDate() + dayOffset);
-
-          // Format date as DD/MM/YYYY for display
-          const formattedDate = `${dropDate.getDate()}/${dropDate.getMonth() + 1}/${dropDate.getFullYear()}`;
-          const label = `${from} - ${to} (${formattedDate})`;
-          const value = `${from}-${to}|${dropDate.toISOString().split('T')[0]}`;
-
-          const option = document.createElement("option");
-          option.value = value;
-          option.textContent = label;
+        
+        if (!selectedPickupSlot || !pickupDate) return;
+        
+        const dropSlots = dropSlotMapping[selectedPickupSlot];
+        if (!dropSlots) return;
+        
+        const pickupDateObj = new Date(pickupDate);
+        
+        dropSlots.forEach(slot => {
+          const dropDate = new Date(pickupDateObj);
+          dropDate.setDate(dropDate.getDate() + slot.daysLater);
+          
+          // Format date as DD/MM/YYYY
+          const formattedDate = `${String(dropDate.getDate()).padStart(2, '0')}/${String(dropDate.getMonth() + 1).padStart(2, '0')}/${dropDate.getFullYear()}`;
+          
+          const option = document.createElement('option');
+          option.value = `${slot.time}|${dropDate.toISOString().split('T')[0]}`;
+          option.textContent = `${slot.time} (${formattedDate})`;
           dropSlotSelect.appendChild(option);
         });
       }
-
+      
       // Set minimum date to today
-      const today = new Date();
-      const dd = String(today.getDate()).padStart(2, '0');
-      const mm = String(today.getMonth() + 1).padStart(2, '0');
-      const yyyy = today.getFullYear();
-      pickupDateInput.min = `${yyyy}-${mm}-${dd}`;
+      function setMinDate() {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        pickupDateInput.min = `${yyyy}-${mm}-${dd}`;
+      }
+      
+      // Initialize the slots
+      function initSlots() {
+        setMinDate();
+        initPickupSlots();
+        
+        // Add event listeners
+        pickupSlotSelect.addEventListener('change', updateDropSlots);
+        pickupDateInput.addEventListener('change', updateDropSlots);
+      }
+      
+      // Initialize slots functionality
+      initSlots();
 
-      // Add event listeners
-      pickupSlotSelect.addEventListener("change", updateDropSlots);
-      pickupDateInput.addEventListener("change", updateDropSlots);
-
+      // Product quantity and total calculation
+      const rows = document.querySelectorAll(".product-row");
+      const totalPriceEl = document.getElementById("total-price");
+      
       function updateTotal() {
         let total = 0;
         rows.forEach((row) => {
@@ -489,6 +500,10 @@
         });
       });
 
+      // Order submission
+      const submitBtn = document.getElementById("mysubmitbtn");
+      const selectedItemsInput = document.getElementById("selected-items");
+      
       async function submitData() {
         const name = document.querySelector("input[name='name']").value;
         const phone = document.querySelector("input[name='phone']").value;
@@ -516,7 +531,7 @@
             let serviceObj = {};
 
             try {
-              serviceObj = JSON.parse(serviceData); // Assume data-service is valid JSON
+              serviceObj = JSON.parse(serviceData);
             } catch (err) {
               console.error("Invalid service JSON:", serviceData, err);
               alert("Error processing product data. Please try again.");
