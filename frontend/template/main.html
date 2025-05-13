@@ -241,10 +241,15 @@
                         <label>Pickup Slot</label>
                         <select name="pickup_slot" id="pickupSlot" class="form-select mb-2" required>
                           <option value="">Select Pickup Slot</option>
+                          <option value="6:00 AM - 7:00 AM">6:00 AM - 7:00 AM</option>
+                          <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
+                          <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
+                          <option value="7:00 PM - 8:00 PM">7:00 PM - 8:00 PM</option>
                         </select>
                         <label>Drop Slot</label>
                         <select name="drop_slot" id="dropSlot" class="form-select mb-2" required>
                           <option value="">Select Drop Slot</option>
+
                         </select>
                         <input type="hidden" name="selected_items" id="selected-items">
                         <input type="hidden" id="userId" value="{{ context.id }}">
@@ -361,12 +366,12 @@
   </script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       // Slot functionality
       const pickupSlotSelect = document.getElementById("pickupSlot");
       const dropSlotSelect = document.getElementById("dropSlot");
       const pickupDateInput = document.getElementById("pickupDate");
-      
+
       // Define pickup slots
       const pickupSlots = [
         "6:00 AM - 7:00 AM",
@@ -374,7 +379,7 @@
         "4:00 PM - 5:00 PM",
         "7:00 PM - 8:00 PM"
       ];
-      
+
       // Define drop slot mapping
       const dropSlotMapping = {
         "6:00 AM - 7:00 AM": [
@@ -402,47 +407,47 @@
           { time: "6:00 AM - 7:00 AM", daysLater: 3 }
         ]
       };
-      
+
       // Initialize pickup slots
-      function initPickupSlots() {
-        pickupSlotSelect.innerHTML = '<option value="">Select Pickup Slot</option>';
-        pickupSlots.forEach(slot => {
-          const option = document.createElement('option');
-          option.value = slot;
-          option.textContent = slot;
-          pickupSlotSelect.appendChild(option);
-        });
-      }
-      
+      // function initPickupSlots() {
+      //   pickupSlotSelect.innerHTML = '<option value="">Select Pickup Slot</option>';
+      //   pickupSlots.forEach(slot => {
+      //     const option = document.createElement('option');
+      //     option.value = slot;
+      //     option.textContent = slot;
+      //     pickupSlotSelect.appendChild(option);
+      //   });
+      // }
+
       // Update drop slots based on pickup selection
       function updateDropSlots() {
         const selectedPickupSlot = pickupSlotSelect.value;
         const pickupDate = pickupDateInput.value;
-        
+
         // Clear existing options
         dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
-        
+
         if (!selectedPickupSlot || !pickupDate) return;
-        
+
         const dropSlots = dropSlotMapping[selectedPickupSlot];
         if (!dropSlots) return;
-        
+
         const pickupDateObj = new Date(pickupDate);
-        
+
         dropSlots.forEach(slot => {
           const dropDate = new Date(pickupDateObj);
           dropDate.setDate(dropDate.getDate() + slot.daysLater);
-          
+
           // Format date as DD/MM/YYYY
           const formattedDate = `${String(dropDate.getDate()).padStart(2, '0')}/${String(dropDate.getMonth() + 1).padStart(2, '0')}/${dropDate.getFullYear()}`;
-          
+
           const option = document.createElement('option');
           option.value = `${slot.time}|${dropDate.toISOString().split('T')[0]}`;
           option.textContent = `${slot.time} (${formattedDate})`;
           dropSlotSelect.appendChild(option);
         });
       }
-      
+
       // Set minimum date to today
       function setMinDate() {
         const today = new Date();
@@ -451,24 +456,24 @@
         const yyyy = today.getFullYear();
         pickupDateInput.min = `${yyyy}-${mm}-${dd}`;
       }
-      
+
       // Initialize the slots
       function initSlots() {
         setMinDate();
-        initPickupSlots();
-        
+        // initPickupSlots();
+
         // Add event listeners
         pickupSlotSelect.addEventListener('change', updateDropSlots);
         pickupDateInput.addEventListener('change', updateDropSlots);
       }
-      
+
       // Initialize slots functionality
       initSlots();
 
       // Product quantity and total calculation
       const rows = document.querySelectorAll(".product-row");
       const totalPriceEl = document.getElementById("total-price");
-      
+
       function updateTotal() {
         let total = 0;
         rows.forEach((row) => {
@@ -503,7 +508,7 @@
       // Order submission
       const submitBtn = document.getElementById("mysubmitbtn");
       const selectedItemsInput = document.getElementById("selected-items");
-      
+
       async function submitData() {
         const name = document.querySelector("input[name='name']").value;
         const phone = document.querySelector("input[name='phone']").value;
