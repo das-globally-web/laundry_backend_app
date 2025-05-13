@@ -17,5 +17,5 @@ def home(request):
         'address': address,
         'is_login': is_login
     }
-    product= ProductTable.objects.all().order_by('-id')
+    product= ProductTable.objects.all()
     return render(request, 'home.html' , {'products': product,  'context': context, 'product': ProductTable.objects.all()})

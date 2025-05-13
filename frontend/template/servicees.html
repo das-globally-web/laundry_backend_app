@@ -20,12 +20,10 @@
     <div class="row align-items-center">
       <div class="col-12 col-md-6 col-lg-5 col-xl-5">
         <div class="buttonssed mt-4">
-          <button class="actives" onclick="showDiv(0)">Laundry Services</button>
-          <button onclick="showDiv(1)">Dry Cleaning Services</button>
-          <button onclick="showDiv(2)">Carpet Cleaning</button>
-          <button onclick="showDiv(3)">Alterations & Repairs</button>
-          <button onclick="showDiv(4)">Steam Iron</button>
-          <button onclick="showDiv(5)">Shoes Cleaning</button>
+          <button class="actives" onclick="showDiv(0)">Steam Iron</button>
+          <button onclick="showDiv(1)">Normal Iron</button>
+          
+          
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-7 col-xl-7">
@@ -40,81 +38,30 @@
         </div>
       </div>
     </div>
-    <div class="row mt-5">
-      <div class="col-12 col-md-6 col-lg-5 col-xl-5">
-        <div class="hillhim-manasaas mt-4">
-          <h2>Our Contacts</h2>
-          <ul>
-            <li> <img src="media/images/lostionshr.png" width="16px" alt=""> 8494 Signal Hill Road Manassas, VA, 20110
-            </li>
-            <li> <img src="media/images/timerwocth.png" width="16px" alt=""> Mon-Fri 08:00 AM - 05:00 PM Sat-Sun 10:00
-              AM
-              - 5:00 PM</li>
-            <li> <img src="media/images/msg.png" width="16px" alt=""> info@yourlaundrysite.com</li>
-            <li> <img src="media/images/colliong.png" width="16px" alt=""> +91-78984545121</li>
-          </ul>
-          <a href="#">Schedule a Pickup</a>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-7 col-xl-7">
-        <div class="whatareyodo  mt-4">
-          <strong>[ What we offer ]</strong>
-          <h5>Laundry Services</h5>
-          <p>Laundry's Wash and Fold, also called Fluff and Fold, or simply Drop Off Laundry, is the perfect
-            solution to your laundry needs as a busy parent, professional, senior citizen or student. Use drop off
-            laundry and free more of your time and energy to work, play, or just relax. Let wash, dry, and fold your
-            clothes for you!</p>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-12 col-md-6 col-lg-5 col-xl-5">
-        <div class="form-container submitsedeser">
-          <h2>Ask Your Question</h2>
-          <form>
-            <input type="text" placeholder="Your Name" required>
 
-            <input type="tel" placeholder="Phone">
-            <textarea placeholder="Your question" required></textarea>
-            <button class="submitsede" type="submit">Ask Question</button>
-          </form>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-7 col-xl-7">
-        <div class="whatareyodo hdeyey  mt-4">
-          <h5>Wash and Fold Laundry Service Delivered to Your Home</h5>
-          <p>Get the very best in wash and fold or fluff and fold laundry service from the dry cleaning and laundry
-            experts. We offer one-day or same-day laundry service with a 100% satisfaction guarantee to customers in
-            our service areas, combining the excellence of our premium dry cleaning with the ultimate convenience in
-            laundry service and delivery. Enjoy free home pickup and delivery for your wash and fold laundry items,
-            or use a safe and secure 24-hour drop box located at our stores and lockers to drop off your fluff and
-            fold laundry whenever it’s convenient for you. Our Laundry Clients include:</p>
-        </div>
-        <div class="row">
-          <div class="col-6">
-            <div class="mt-4">
-              <img src="media/images/priceimg.png" width="100%" alt="">
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="mt-4">
-              <img src="media/images/tsratshow.png" width="100%" alt="">
-            </div>
+
+  </div>
+</section>
+<section class="popular-servicesec ">
+  <div class="container">
+    <div class="popuilar-titletext">
+      <h4>popular service</h4>
+    </div>
+    <div class="row">
+      {% for product in products %}
+      <div class="col-6 col-md-6 col-lg-3 col-xl-3">
+        <div class="rechtanal-img mt-4">
+          <img src="{{product.image}}" alt="ironissue" />
+          <div class="jecit-shop">
+            <h3>{{product.title}}</h3>
+            <span>iron Only</span>
+            {% for item in product.price_json %}
+            <h4> ₹ {{item.price}}</h4>
+            {% endfor %}
           </div>
         </div>
-        <div class="whatareyodo hdeyey nwewe  mt-4">
-          <h5>How Wash and Fold Works</h5>
-          <p>What is Wash and Fold? Sometimes referred to as laundry service or fluff and fold, Mulberrys wash and
-            fold is our top-notch laundry service. When your garments don’t need our dry cleaning services, wash and
-            fold is your best solution to clean clothes. Your clothes will last longer and stay brighter</p>
-          <p>Simply use one of our many convenient drop-off or pickup services, tell us any specific instructions
-            for particular pieces of clothing, and we’ll take it from there! We use state-of-the-art equipment and
-            the best craftsmanship in the industry. Those factors coupled with our toxin-free detergents and crystal
-            clear water will leave your wardrobe with an unmatched clean. Each piece of clothing is hand-finished by
-            our pressers and inspected for perfection—guaranteed or we’ll redo services free of charge.</p>
-          <a href="#">Get Service Now</a>
-        </div>
       </div>
+      {% endfor %}
     </div>
   </div>
 </section>

@@ -17,4 +17,5 @@ def service(request):
         'address': address,
         'is_login': is_login
     }
-    return render(request,  'servicees.html', { 'context': context, 'product': ProductTable.objects.all().order_by('-id')})
+    product= ProductTable.objects.all()
+    return render(request,  'servicees.html', { 'context': context, 'product': ProductTable.objects.all().order_by('-id'), 'products': product})

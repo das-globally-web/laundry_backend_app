@@ -172,9 +172,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/price">Prices</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/blog">Blog</a>
-              </li>
+
               <li class="nav-item">
                 <a class="nav-link" href="/contactus">Contact</a>
               </li>
@@ -373,34 +371,42 @@
       const submitBtn = document.getElementById("mysubmitbtn"); // Correct ID
 
       // Populate pickup slots
+      const pickupSlots = [
+        "6:00 AM - 7:00 AM",
+        "9:00 AM - 10:00 AM",
+        "4:00 PM - 5:00 PM",
+        "7:00 PM - 8:00 PM"
+      ];
+
       const dropSlotMapping = {
         "6:00 AM - 7:00 AM": [
-          { from: "4:00 PM", to: "5:00 PM", dayOffset: 0 },
-          { from: "7:00 PM", to: "8:00 PM", dayOffset: 0 },
-          { from: "6:00 AM", to: "7:00 AM", dayOffset: 1 },
-          { from: "9:00 AM", to: "10:00 AM", dayOffset: 1 },
-        ],
-        "9:00 AM - 10:00 AM": [
-          { from: "7:00 PM", to: "8:00 PM", dayOffset: 0 },
-          { from: "6:00 AM", to: "7:00 AM", dayOffset: 1 },
-          { from: "9:00 AM", to: "10:00 AM", dayOffset: 1 },
-          { from: "4:00 PM", to: "5:00 PM", dayOffset: 1 },
-        ],
-        "4:00 PM - 5:00 PM": [
-          { from: "6:00 AM", to: "7:00 AM", dayOffset: 1 },
-          { from: "9:00 AM", to: "10:00 AM", dayOffset: 1 },
-          { from: "4:00 PM", to: "5:00 PM", dayOffset: 1 },
-          { from: "7:00 PM", to: "8:00 PM", dayOffset: 1 },
-        ],
-        "7:00 PM - 8:00 PM": [
-          { from: "9:00 AM", to: "10:00 AM", dayOffset: 1 },
           { from: "4:00 PM", to: "5:00 PM", dayOffset: 1 },
           { from: "7:00 PM", to: "8:00 PM", dayOffset: 1 },
           { from: "6:00 AM", to: "7:00 AM", dayOffset: 2 },
+          { from: "9:00 AM", to: "10:00 AM", dayOffset: 2 },
+        ],
+        "9:00 AM - 10:00 AM": [
+          { from: "7:00 PM", to: "8:00 PM", dayOffset: 1 },
+          { from: "6:00 AM", to: "7:00 AM", dayOffset: 2 },
+          { from: "9:00 AM", to: "10:00 AM", dayOffset: 2 },
+          { from: "4:00 PM", to: "5:00 PM", dayOffset: 2 },
+        ],
+        "4:00 PM - 5:00 PM": [
+          { from: "6:00 AM", to: "7:00 AM", dayOffset: 2 },
+          { from: "9:00 AM", to: "10:00 AM", dayOffset: 2 },
+          { from: "4:00 PM", to: "5:00 PM", dayOffset: 2 },
+          { from: "7:00 PM", to: "8:00 PM", dayOffset: 2 },
+        ],
+        "7:00 PM - 8:00 PM": [
+          { from: "9:00 AM", to: "10:00 AM", dayOffset: 2 },
+          { from: "4:00 PM", to: "5:00 PM", dayOffset: 2 },
+          { from: "7:00 PM", to: "8:00 PM", dayOffset: 2 },
+          { from: "6:00 AM", to: "7:00 AM", dayOffset: 3 },
         ],
       };
 
-      Object.keys(dropSlotMapping).forEach((slot) => {
+      // Populate pickup slots
+      pickupSlots.forEach((slot) => {
         const option = document.createElement("option");
         option.value = slot;
         option.textContent = slot;
@@ -410,24 +416,45 @@
       function updateDropSlots() {
         const selectedPickupSlot = pickupSlotSelect.value;
         const pickupDate = new Date(pickupDateInput.value);
+
+        // Clear existing options
         dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
 
-        if (!selectedPickupSlot || isNaN(pickupDate.getTime())) return;
+        if (!selectedPickupSlot || isNaN(pickupDate.getTime())) {
+          return;
+        }
 
         const dropOptions = dropSlotMapping[selectedPickupSlot];
+
+        if (!dropOptions) {
+          console.error("No drop options found for selected pickup slot");
+          return;
+        }
+
         dropOptions.forEach(({ from, to, dayOffset }) => {
           const dropDate = new Date(pickupDate);
           dropDate.setDate(dropDate.getDate() + dayOffset);
-          const formattedDate = dropDate.toISOString().split("T")[0];
+
+          // Format date as DD/MM/YYYY for display
+          const formattedDate = `${dropDate.getDate()}/${dropDate.getMonth() + 1}/${dropDate.getFullYear()}`;
           const label = `${from} - ${to} (${formattedDate})`;
+          const value = `${from}-${to}|${dropDate.toISOString().split('T')[0]}`;
 
           const option = document.createElement("option");
-          option.value = label;
+          option.value = value;
           option.textContent = label;
           dropSlotSelect.appendChild(option);
         });
       }
 
+      // Set minimum date to today
+      const today = new Date();
+      const dd = String(today.getDate()).padStart(2, '0');
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const yyyy = today.getFullYear();
+      pickupDateInput.min = `${yyyy}-${mm}-${dd}`;
+
+      // Add event listeners
       pickupSlotSelect.addEventListener("change", updateDropSlots);
       pickupDateInput.addEventListener("change", updateDropSlots);
 
