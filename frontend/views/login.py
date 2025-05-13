@@ -20,7 +20,8 @@ def login(request):
 
     if request.method == "POST":
         phone = request.POST.get("phone")
-        user = User.objects.get(phone_number=phone)
+        user = User.objects(phone_number=phone)
+        print(user)
         if user:
             otp = generate_otp()
             request.session["otp"] = str(otp)

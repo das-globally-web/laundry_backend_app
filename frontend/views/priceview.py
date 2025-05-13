@@ -22,4 +22,4 @@ def price(request):
     left_column = product[:half]
     right_column = product[half:]
     return render(request, 'price.html',  { 'context': context, 'products': product, "left_column": left_column,
-        "right_column": right_column, 'product': ProductTable.objects.all().order_by('-id')})
+        "right_column": right_column, 'product': ProductTable.objects.all()})
