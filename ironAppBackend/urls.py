@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+from frontend.views.terms import terms, shippingPolicy
 from ironAppBackend import settings
 from .views import file_upload
 from frontend.views.homeview import home
@@ -37,6 +38,11 @@ urlpatterns = [
     path("price", price, name="price"),
     path("contactus", contactUs, name="contactus"),
     path("blog", blog, name="blog"),
+    path("terms", terms, name="terms"),
+    path("shipping", shippingPolicy, name="shipping"),
+    path("cancellation", shippingPolicy, name="cancellation"),
+    path("privacy", shippingPolicy, name="privacy"),
+    
     path("blog/<str:id>", blogsByCategory, name="blog_by_category"),
 
     # before this include the upper code was for main website route
