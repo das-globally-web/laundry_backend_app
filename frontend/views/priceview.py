@@ -17,7 +17,7 @@ def price(request):
         'address': address,
         'is_login': is_login
     }
-    product= ProductTable.objects.all().order_by('-id')
+    product= ProductTable.objects.all()
     half = len(product) // 2
     left_column = product[:half]
     right_column = product[half:]

@@ -296,7 +296,7 @@
                   <li><strong>Contact Info</strong></li>
                   <li><a href="#"><span>+91-9642854965</span></a></li>
 
-                  <li><a href="#">Lorem Ipsum is simply dummy text of the printing and</a></li>
+
                 </ul>
               </div>
             </div>
@@ -371,262 +371,319 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Slot functionality
-      const pickupSlotSelect = document.getElementById("pickupSlot");
-      const dropSlotSelect = document.getElementById("dropSlot");
-      const pickupDateInput = document.getElementById("pickupDate");
-
-      // Define pickup slots
-      const pickupSlots = [
-        "6:00 AM - 7:00 AM",
-        "9:00 AM - 10:00 AM",
-        "4:00 PM - 5:00 PM",
-        "7:00 PM - 8:00 PM"
-      ];
-
-      // Define drop slot mapping
-      const dropSlotMapping = {
-        "6:00 AM - 7:00 AM": [
-          { time: "4:00 PM - 5:00 PM", daysLater: 1 },
-          { time: "7:00 PM - 8:00 PM", daysLater: 1 },
-          { time: "6:00 AM - 7:00 AM", daysLater: 2 },
-          { time: "9:00 AM - 10:00 AM", daysLater: 2 }
-        ],
-        "9:00 AM - 10:00 AM": [
-          { time: "7:00 PM - 8:00 PM", daysLater: 1 },
-          { time: "6:00 AM - 7:00 AM", daysLater: 2 },
-          { time: "9:00 AM - 10:00 AM", daysLater: 2 },
-          { time: "4:00 PM - 5:00 PM", daysLater: 2 }
-        ],
-        "4:00 PM - 5:00 PM": [
-          { time: "6:00 AM - 7:00 AM", daysLater: 2 },
-          { time: "9:00 AM - 10:00 AM", daysLater: 2 },
-          { time: "4:00 PM - 5:00 PM", daysLater: 2 },
-          { time: "7:00 PM - 8:00 PM", daysLater: 2 }
-        ],
-        "7:00 PM - 8:00 PM": [
-          { time: "9:00 AM - 10:00 AM", daysLater: 2 },
-          { time: "4:00 PM - 5:00 PM", daysLater: 2 },
-          { time: "7:00 PM - 8:00 PM", daysLater: 2 },
-          { time: "6:00 AM - 7:00 AM", daysLater: 3 }
-        ]
-      };
-
-      // Initialize pickup slots
-      // function initPickupSlots() {
-      //   pickupSlotSelect.innerHTML = '<option value="">Select Pickup Slot</option>';
-      //   pickupSlots.forEach(slot => {
-      //     const option = document.createElement('option');
-      //     option.value = slot;
-      //     option.textContent = slot;
-      //     pickupSlotSelect.appendChild(option);
-      //   });
-      // }
-
-      // Update drop slots based on pickup selection
-      function updateDropSlots() {
-        const selectedPickupSlot = pickupSlotSelect.value;
-        const pickupDate = pickupDateInput.value;
-
-        // Clear existing options
-        dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
-
-        if (!selectedPickupSlot || !pickupDate) return;
-
-        const dropSlots = dropSlotMapping[selectedPickupSlot];
-        if (!dropSlots) return;
-
-        const pickupDateObj = new Date(pickupDate);
-
-        dropSlots.forEach(slot => {
-          const dropDate = new Date(pickupDateObj);
-          dropDate.setDate(dropDate.getDate() + slot.daysLater);
-
-          // Format date as DD/MM/YYYY
-          const formattedDate = `${String(dropDate.getDate()).padStart(2, '0')}/${String(dropDate.getMonth() + 1).padStart(2, '0')}/${dropDate.getFullYear()}`;
-
-          const option = document.createElement('option');
-          option.value = `${slot.time}|${dropDate.toISOString().split('T')[0]}`;
-          option.textContent = `${slot.time} (${formattedDate})`;
-          dropSlotSelect.appendChild(option);
-        });
-      }
-
-      // Set minimum date to today
-      function setMinDate() {
-        const today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const yyyy = today.getFullYear();
-        pickupDateInput.min = `${yyyy}-${mm}-${dd}`;
-      }
-
-      // Initialize the slots
-      function initSlots() {
-        setMinDate();
-        // initPickupSlots();
-
-        // Add event listeners
-        pickupSlotSelect.addEventListener('change', updateDropSlots);
-        pickupDateInput.addEventListener('change', updateDropSlots);
-      }
-
-      // Initialize slots functionality
-      initSlots();
-
-      // Product quantity and total calculation
-      const rows = document.querySelectorAll(".product-row");
-      const totalPriceEl = document.getElementById("total-price");
-
-      function updateTotal() {
-        let total = 0;
-        rows.forEach((row) => {
-          const price = parseFloat(row.dataset.price);
-          const qty = parseInt(row.querySelector(".quantity").textContent);
-          total += price * qty;
-        });
-        totalPriceEl.textContent = total.toFixed(2);
-      }
-
-      rows.forEach((row) => {
-        const increaseBtn = row.querySelector(".increase");
-        const decreaseBtn = row.querySelector(".decrease");
-        const qtyEl = row.querySelector(".quantity");
-
-        increaseBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          qtyEl.textContent = parseInt(qtyEl.textContent) + 1;
-          updateTotal();
-        });
-
-        decreaseBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          const currentQty = parseInt(qtyEl.textContent);
-          if (currentQty > 0) {
-            qtyEl.textContent = currentQty - 1;
-            updateTotal();
-          }
-        });
-      });
-
-      // Order submission
-      const submitBtn = document.getElementById("mysubmitbtn");
-      const selectedItemsInput = document.getElementById("selected-items");
-
-      async function submitData() {
-        const name = document.querySelector("input[name='name']").value;
-        const phone = document.querySelector("input[name='phone']").value;
-        const address = document.querySelector("input[name='address']").value;
-        const pickupDate = pickupDateInput.value;
-        const pickupSlot = pickupSlotSelect.value;
-        const dropSlot = dropSlotSelect.value;
-        const userId = document.getElementById("userId").value;
-
-        if (!name || !phone || !address || !pickupDate || !pickupSlot || !dropSlot) {
-          alert("Please fill in all required fields, including pickup and drop slots.");
-          submitBtn.disabled = false;
+      // Function to initialize slot functionality for a given modal
+      function initModalSlots(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) {
+          console.error(`Modal with ID ${modalId} not found`);
           return;
         }
 
-        // Collect selected items
-        const selectedItems = [];
-        let totalAmount = 0;
+        const pickupSlotSelect = modal.querySelector("#pickupSlot");
+        const dropSlotSelect = modal.querySelector("#dropSlot");
+        const pickupDateInput = modal.querySelector("#pickupDate");
 
-        rows.forEach((row) => {
-          const qty = parseInt(row.querySelector(".quantity").textContent);
-          if (qty > 0) {
-            const serviceData = row.dataset.service;
-            const price = parseFloat(row.dataset.price);
-            let serviceObj = {};
-
-            try {
-              serviceObj = JSON.parse(serviceData);
-            } catch (err) {
-              console.error("Invalid service JSON:", serviceData, err);
-              alert("Error processing product data. Please try again.");
-              return;
-            }
-
-            selectedItems.push({
-              product_id: row.dataset.id,
-              chosed_service: serviceObj,
-              quantity: qty,
-            });
-
-            totalAmount += price * qty;
-          }
-        });
-
-        if (selectedItems.length === 0) {
-          alert("Please select at least one product.");
-          submitBtn.disabled = false;
+        if (!pickupSlotSelect || !dropSlotSelect || !pickupDateInput) {
+          console.error(`Required elements missing in modal ${modalId}`);
           return;
         }
 
-        // Populate hidden input
-        selectedItemsInput.value = JSON.stringify(selectedItems);
+        // Define pickup slots
+        const pickupSlots = [
+          "6:00 AM - 7:00 AM",
+          "9:00 AM - 10:00 AM",
+          "4:00 PM - 5:00 PM",
+          "7:00 PM - 8:00 PM",
+        ];
 
-        // Prepare payload
-        const trxId = "txn_" + Date.now();
-        const paymentType = "cash";
-
-        const payload = {
-          userid: userId,
-          trx_id: trxId,
-          payment_typ: paymentType,
-          product: selectedItems,
-          total_booked_amount: totalAmount,
-          iroing: false,
-          deliverd: false,
-          address: address,
-          latitude: "28.6448",
-          longitude: "77.216721",
-          delivery_slot: dropSlot,
-          pickup_slot: pickupSlot,
-          pickup_date: pickupDate,
+        // Define drop slot mapping
+        const dropSlotMapping = {
+          "6:00 AM - 7:00 AM": [
+            { time: "4:00 PM - 5:00 PM", daysLater: 1 },
+            { time: "7:00 PM - 8:00 PM", daysLater: 1 },
+            { time: "6:00 AM - 7:00 AM", daysLater: 2 },
+            { time: "9:00 AM - 10:00 AM", daysLater: 2 },
+          ],
+          "9:00 AM - 10:00 AM": [
+            { time: "7:00 PM - 8:00 PM", daysLater: 1 },
+            { time: "6:00 AM - 7:00 AM", daysLater: 2 },
+            { time: "9:00 AM - 10:00 AM", daysLater: 2 },
+            { time: "4:00 PM - 5:00 PM", daysLater: 2 },
+          ],
+          "4:00 PM - 5:00 PM": [
+            { time: "6:00 AM - 7:00 AM", daysLater: 2 },
+            { time: "9:00 AM - 10:00 AM", daysLater: 2 },
+            { time: "4:00 PM - 5:00 PM", daysLater: 2 },
+            { time: "7:00 PM - 8:00 PM", daysLater: 2 },
+          ],
+          "7:00 PM - 8:00 PM": [
+            { time: "9:00 AM - 10:00 AM", daysLater: 2 },
+            { time: "4:00 PM - 5:00 PM", daysLater: 2 },
+            { time: "7:00 PM - 8:00 PM", daysLater: 2 },
+            { time: "6:00 AM - 7:00 AM", daysLater: 3 },
+          ],
         };
 
-        console.log("Payload:", payload);
+        // Set minimum date to today
+        function setMinDate() {
+          const today = new Date();
+          const yyyy = today.getFullYear();
+          const mm = String(today.getMonth() + 1).padStart(2, "0");
+          const dd = String(today.getDate()).padStart(2, "0");
+          pickupDateInput.min = `${yyyy}-${mm}-${dd}`;
+        }
 
-        try {
-          const res = await fetch("/api/create-order", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
+        // Update drop slots based on pickup selection
+        function updateDropSlots() {
+          console.log(`updateDropSlots called for ${modalId}`, {
+            selectedPickupSlot: pickupSlotSelect.value,
+            pickupDate: pickupDateInput.value,
           });
 
-          const data = await res.json();
-          if (res.ok) {
-            alert("Order placed successfully!");
-            // Reset form
-            document.querySelector("input[name='name']").value = "";
-            document.querySelector("input[name='phone']").value = "";
-            document.querySelector("input[name='address']").value = "";
-            pickupDateInput.value = "";
-            pickupSlotSelect.value = "";
-            dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
-            totalPriceEl.textContent = "0";
-            rows.forEach((row) => {
-              row.querySelector(".quantity").textContent = "0";
-            });
-          } else {
-            console.error("API Error:", data);
-            alert("Failed to place order: " + (data.message || "Unknown error"));
+          // Clear existing options
+          dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
+
+          const selectedPickupSlot = pickupSlotSelect.value;
+          const pickupDate = pickupDateInput.value;
+
+          if (!selectedPickupSlot || !pickupDate) {
+            console.log(`Missing inputs in ${modalId}:`, { selectedPickupSlot, pickupDate });
+            return;
           }
-        } catch (err) {
-          console.error("Network Error:", err);
-          alert("Network error! Please check your connection and try again.");
-        } finally {
-          submitBtn.disabled = false;
+
+          const dropSlots = dropSlotMapping[selectedPickupSlot];
+          if (!dropSlots) {
+            console.error(`No drop slots for pickup slot in ${modalId}:`, selectedPickupSlot);
+            return;
+          }
+
+          const pickupDateObj = new Date(pickupDate);
+          if (isNaN(pickupDateObj)) {
+            console.error(`Invalid pickup date in ${modalId}:`, pickupDate);
+            return;
+          }
+
+          dropSlots.forEach((slot) => {
+            const dropDate = new Date(pickupDateObj);
+            dropDate.setDate(dropDate.getDate() + slot.daysLater);
+
+            const dd = String(dropDate.getDate()).padStart(2, "0");
+            const mm = String(dropDate.getMonth() + 1).padStart(2, "0");
+            const yyyy = dropDate.getFullYear();
+            const formattedDate = `${dd}/${mm}/${yyyy}`;
+
+            const option = document.createElement("option");
+            option.value = `${slot.time}|${dropDate.toISOString().split("T")[0]}`;
+            option.textContent = `${slot.time} (${formattedDate})`;
+            dropSlotSelect.appendChild(option);
+          });
+
+          console.log(`Drop slot options for ${modalId}:`, dropSlotSelect.innerHTML);
         }
+
+        // Initialize slots
+        function initSlots() {
+          setMinDate();
+
+          // Add event listeners
+          pickupSlotSelect.addEventListener("change", () => {
+            console.log(`Pickup slot changed in ${modalId}:`, pickupSlotSelect.value);
+            updateDropSlots();
+          });
+          pickupDateInput.addEventListener("change", () => {
+            console.log(`Pickup date changed in ${modalId}:`, pickupDateInput.value);
+            updateDropSlots();
+          });
+
+          // Trigger update if already selected
+          if (pickupSlotSelect.value && pickupDateInput.value) {
+            updateDropSlots();
+          }
+        }
+
+        // Initialize slots for this modal
+        initSlots();
       }
 
-      submitBtn.addEventListener("click", () => {
-        submitBtn.disabled = true;
-        submitData();
-      });
+      // Initialize slots for both modals
+      initModalSlots("exampleModal");
+      initModalSlots("exampleModaledfr");
+
+      // Product quantity and total calculation for each modal
+      function initProductControls(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+
+        const rows = modal.querySelectorAll(".product-row");
+        const totalPriceEl = modal.querySelector("#total-price");
+
+        function updateTotal() {
+          let total = 0;
+          rows.forEach((row) => {
+            const price = parseFloat(row.dataset.price);
+            const qty = parseInt(row.querySelector(".quantity").textContent);
+            total += price * qty;
+          });
+          totalPriceEl.textContent = total.toFixed(2);
+        }
+
+        rows.forEach((row) => {
+          const increaseBtn = row.querySelector(".increase");
+          const decreaseBtn = row.querySelector(".decrease");
+          const qtyEl = row.querySelector(".quantity");
+
+          increaseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            qtyEl.textContent = parseInt(qtyEl.textContent) + 1;
+            updateTotal();
+          });
+
+          decreaseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const currentQty = parseInt(qtyEl.textContent);
+            if (currentQty > 0) {
+              qtyEl.textContent = currentQty - 1;
+              updateTotal();
+            }
+          });
+        });
+      }
+
+      initProductControls("exampleModal");
+      initProductControls("exampleModaledfr");
+
+      // Order submission for each modal
+      function initOrderSubmission(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+
+        const submitBtn = modal.querySelector("#mysubmitbtn");
+        const selectedItemsInput = modal.querySelector("#selected-items");
+        const pickupSlotSelect = modal.querySelector("#pickupSlot");
+        const dropSlotSelect = modal.querySelector("#dropSlot");
+        const pickupDateInput = modal.querySelector("#pickupDate");
+
+        async function submitData() {
+          const name = modal.querySelector("input[name='name']").value;
+          const phone = modal.querySelector("input[name='phone']").value;
+          const address = modal.querySelector("input[name='address']").value;
+          const pickupDate = pickupDateInput.value;
+          const pickupSlot = pickupSlotSelect.value;
+          const dropSlot = dropSlotSelect.value;
+          const userId = modal.querySelector("#userId").value;
+
+          if (!name || !phone || !address || !pickupDate || !pickupSlot || !dropSlot) {
+            alert("Please fill in all required fields, including pickup and drop slots.");
+            submitBtn.disabled = false;
+            return;
+          }
+
+          const rows = modal.querySelectorAll(".product-row");
+          const totalPriceEl = modal.querySelector("#total-price");
+
+          // Collect selected items
+          const selectedItems = [];
+          let totalAmount = 0;
+
+          rows.forEach((row) => {
+            const qty = parseInt(row.querySelector(".quantity").textContent);
+            if (qty > 0) {
+              const serviceData = row.dataset.service;
+              const price = parseFloat(row.dataset.price);
+              let serviceObj = {};
+
+              try {
+                serviceObj = JSON.parse(serviceData);
+              } catch (err) {
+                console.error(`Invalid service JSON in ${modalId}:`, serviceData, err);
+                alert("Error processing product data. Please try again.");
+                return;
+              }
+
+              selectedItems.push({
+                product_id: row.dataset.id,
+                chosed_service: serviceObj,
+                quantity: qty,
+              });
+
+              totalAmount += price * qty;
+            }
+          });
+
+          if (selectedItems.length === 0) {
+            alert("Please select at least one product.");
+            submitBtn.disabled = false;
+            return;
+          }
+
+          // Populate hidden input
+          selectedItemsInput.value = JSON.stringify(selectedItems);
+
+          // Prepare payload
+          const trxId = "txn_" + Date.now();
+          const paymentType = "cash";
+
+          const payload = {
+            userid: userId,
+            trx_id: trxId,
+            payment_typ: paymentType,
+            product: selectedItems,
+            total_booked_amount: totalAmount,
+            iroing: false,
+            deliverd: false,
+            address: address,
+            latitude: "28.6448",
+            longitude: "77.216721",
+            delivery_slot: dropSlot,
+            pickup_slot: pickupSlot,
+            pickup_date: pickupDate,
+          };
+
+          console.log(`Payload for ${modalId}:`, payload);
+
+          try {
+            const res = await fetch("/api/create-order", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(payload),
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+              alert("Order placed successfully!");
+              // Reset form
+              modal.querySelector("input[name='name']").value = "";
+              modal.querySelector("input[name='phone']").value = "";
+              modal.querySelector("input[name='address']").value = "";
+              pickupDateInput.value = "";
+              pickupSlotSelect.value = "";
+              dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
+              totalPriceEl.textContent = "0";
+              rows.forEach((row) => {
+                row.querySelector(".quantity").textContent = "0";
+              });
+            } else {
+              console.error(`API Error in ${modalId}:`, data);
+              alert("Failed to place order: " + (data.message || "Unknown error"));
+            }
+          } catch (err) {
+            console.error(`Network Error in ${modalId}:`, err);
+            alert("Network error! Please check your connection and try again.");
+          } finally {
+            submitBtn.disabled = false;
+          }
+        }
+
+        submitBtn.addEventListener("click", () => {
+          submitBtn.disabled = true;
+          submitData();
+        });
+      }
+
+      initOrderSubmission("exampleModal");
+      initOrderSubmission("exampleModaledfr");
     });
   </script>
 </body>
