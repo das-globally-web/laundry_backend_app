@@ -399,28 +399,28 @@
         // Define drop slot mapping
         const dropSlotMapping = {
           "6:00 AM - 7:00 AM": [
+            { time: "4:00 PM - 5:00 PM", daysLater: 0 },
+            { time: "7:00 PM - 8:00 PM", daysLater: 0 },
+            { time: "6:00 AM - 7:00 AM", daysLater: 1 },
+            { time: "9:00 AM - 10:00 AM", daysLater: 1 },
+          ],
+          "9:00 AM - 10:00 AM": [
+            { time: "7:00 PM - 8:00 PM", daysLater: 0 },
+            { time: "6:00 AM - 7:00 AM", daysLater: 1 },
+            { time: "9:00 AM - 10:00 AM", daysLater: 1 },
+            { time: "4:00 PM - 5:00 PM", daysLater: 1 },
+          ],
+          "4:00 PM - 5:00 PM": [
+            { time: "6:00 AM - 7:00 AM", daysLater: 1 },
+            { time: "9:00 AM - 10:00 AM", daysLater: 1 },
+            { time: "4:00 PM - 5:00 PM", daysLater: 1 },
+            { time: "7:00 PM - 8:00 PM", daysLater: 1 },
+          ],
+          "7:00 PM - 8:00 PM": [
+            { time: "9:00 AM - 10:00 AM", daysLater: 1 },
             { time: "4:00 PM - 5:00 PM", daysLater: 1 },
             { time: "7:00 PM - 8:00 PM", daysLater: 1 },
             { time: "6:00 AM - 7:00 AM", daysLater: 2 },
-            { time: "9:00 AM - 10:00 AM", daysLater: 2 },
-          ],
-          "9:00 AM - 10:00 AM": [
-            { time: "7:00 PM - 8:00 PM", daysLater: 1 },
-            { time: "6:00 AM - 7:00 AM", daysLater: 2 },
-            { time: "9:00 AM - 10:00 AM", daysLater: 2 },
-            { time: "4:00 PM - 5:00 PM", daysLater: 2 },
-          ],
-          "4:00 PM - 5:00 PM": [
-            { time: "6:00 AM - 7:00 AM", daysLater: 2 },
-            { time: "9:00 AM - 10:00 AM", daysLater: 2 },
-            { time: "4:00 PM - 5:00 PM", daysLater: 2 },
-            { time: "7:00 PM - 8:00 PM", daysLater: 2 },
-          ],
-          "7:00 PM - 8:00 PM": [
-            { time: "9:00 AM - 10:00 AM", daysLater: 2 },
-            { time: "4:00 PM - 5:00 PM", daysLater: 2 },
-            { time: "7:00 PM - 8:00 PM", daysLater: 2 },
-            { time: "6:00 AM - 7:00 AM", daysLater: 3 },
           ],
         };
 
@@ -457,7 +457,8 @@
             return;
           }
 
-          const pickupDateObj = new Date(pickupDate);
+          // 🛠 Fix timezone issue by using midnight time
+          const pickupDateObj = new Date(pickupDate + "T00:00:00");
           if (isNaN(pickupDateObj)) {
             console.error(`Invalid pickup date in ${modalId}:`, pickupDate);
             return;
@@ -480,6 +481,7 @@
 
           console.log(`Drop slot options for ${modalId}:`, dropSlotSelect.innerHTML);
         }
+
 
         // Initialize slots
         function initSlots() {
