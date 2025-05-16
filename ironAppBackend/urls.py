@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
-from frontend.views.terms import terms, shippingPolicy
+from frontend.views.terms import terms, shippingPolicy, cancellation, privacy
 from ironAppBackend import settings
 from .views import file_upload
 from frontend.views.homeview import home
@@ -40,8 +40,8 @@ urlpatterns = [
     path("blog", blog, name="blog"),
     path("terms", terms, name="terms"),
     path("shipping", shippingPolicy, name="shipping"),
-    path("cancellation", shippingPolicy, name="cancellation"),
-    path("privacy", shippingPolicy, name="privacy"),
+    path("cancellation", cancellation , name="cancellation"),
+    path("privacy", privacy, name="privacy"),
     
     path("blog/<str:id>", blogsByCategory, name="blog_by_category"),
 
