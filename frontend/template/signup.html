@@ -32,17 +32,23 @@
                             <form method="POST" action="/register/">
                                 {% csrf_token %}
                                 {% if error %}
-                                    <p style="color:red;">{{ error }}</p>
+                                <p style="color:red;">{{ error }}</p>
                                 {% endif %}
-                            
+
                                 <div class="containersder">
                                     <h2>Sign Up</h2>
                                     <p>Create your accunt first</p>
-                            
+
                                     <input type="text" name="name" placeholder="Enter Full Name" required>
                                     <input type="text" name="phone" placeholder="Enter Phone Number" required>
-                                    <input type="text" name="current_address" placeholder="Current Address " required>
-                            
+                                    <input type="text" id="society" placeholder="Name of Society" required>
+                                    <input type="text" id="flat" placeholder="Flat Number" required>
+                                    <input type="text" id="tower" placeholder="Tower Number" required>
+                                    <input type="text" id="sector" placeholder="Sector" required>
+
+                                    <!-- Hidden field that will contain the combined address -->
+                                    <input type="hidden" name="current_address" id="current_address">
+
                                     <button type="submit">Sign up</button>
                                 </div>
                             </form>
@@ -82,6 +88,22 @@
         const btn = document.getElementById("topBtn");
         window.onscroll = () => btn.style.display = window.scrollY > 200 ? "block" : "none";
         const topFunction = () => window.scrollTo({ top: 0, behavior: "smooth" });
+    </script>
+    <script>
+        const society = document.getElementById("society");
+        const flat = document.getElementById("flat");
+        const tower = document.getElementById("tower");
+        const sector = document.getElementById("sector");
+        const hiddenAddress = document.getElementById("current_address");
+
+        // When form is submitted, combine values into one
+        document.querySelector("form").addEventListener("submit", function (e) {
+            hiddenAddress.value =
+                society.value.trim() +
+                ", Flat No: " + flat.value.trim() +
+                ", Tower: " + tower.value.trim() +
+                ", Sector: " + sector.value.trim();
+        });
     </script>
 
     <!-- owl  slider -->
