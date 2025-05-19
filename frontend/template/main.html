@@ -86,8 +86,9 @@
           <div class="searctitle">
             <div class="d-flex frsgrtt form-topheadre" data-bs-toggle="modal" data-bs-target="#exampleModaledfr">
               {% if context.is_login %}
-              <button class="btn" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Schedule a
-                pickup</button>
+              <button class="btn" type="submit" ><a class="text-white bthern"
+                  href="/bookOrder">Schedule a
+                  pickup</a></button>
               {% else %}
               <div class="form-login">
                 <a href="/login"><i class="fa-solid fa-user"></i> Log In</a>
@@ -96,68 +97,7 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModaledfr" tabindex="-1" aria-labelledby="exampleModaledfr"
-              aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header modealsong">
-                    <h5 class="modal-title">Schedule a Pickup</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div>
-                      <p>Your Name*</p>
-                      <input type="text" name="name" placeholder="Your Name*" required class="form-control my-2"
-                        value="{{context.name}}">
-                      <p>Phone*</p>
-                      <input type="tel" name="phone" placeholder="Your Phone Number" required class="form-control"
-                        value="{{context.phone}}">
-                      <p>Address*</p>
-                      <input type="text" name="address" placeholder="Address*" required class="form-control my-2"
-                        value="{{context.address}}">
-                      <p>Choose Product*</p>
-                      <div id="product-list">
-                        {% for pro in product %}
-                        {% for item in pro.price_json %}
-                        <div class="product-row" data-id="{{ pro.id }}" data-title="{{ pro.title }}"
-                          data-service="{{ item|jsonify }}" data-price="{{ item.price }}">
-                          <div class="product-name">{{ pro.title }}</div>
-                          <div class="quantity-controls">
-                            <button type="button" class="decrease">-</button>
-                            <span class="quantity">0</span>
-                            <button type="button" class="increase">+</button>
-                          </div>
-                          <div class="product-price">₹{{ item.price }}</div>
-                        </div>
-                        {% endfor %}
-                        {% endfor %}
-                      </div>
-                      <div class="total">
-                        Total: ₹<span id="total-price">0</span>
-                      </div>
-                      <label class="mt-3">Pickup Date</label>
-                      <input type="date" name="pickup_date" id="pickupDate" class="form-control mb-2" required>
-                      <label>Pickup Slot</label>
-                      <select name="pickup_slot" id="pickupSlot" class="form-select mb-2" required>
-                        <option value="">Select Pickup Slot</option>
-                        <option value="6:00 AM - 7:00 AM">6:00 AM - 7:00 AM</option>
-                        <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
-                        <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
-                        <option value="7:00 PM - 8:00 PM">7:00 PM - 8:00 PM</option>
-                      </select>
-                      <label>Drop Slot</label>
-                      <select name="drop_slot" id="dropSlot" class="form-select mb-2" required>
-                        <option value="">Select Drop Slot</option>
-                      </select>
-                      <input type="hidden" name="selected_items" id="selected-items">
-                      <input type="hidden" id="userId" value="{{ context.id }}">
-                      <button id="mysubmitbtn" class="btn btn-primary w-100 on">Order
-                        Now</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
 
             <button class="navbar-toggler buttonsdee" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -192,8 +132,9 @@
             </ul>
             <div class="d-flex form-topheadre" role="search">
               {% if context.is_login %}
-              <button class="btn" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Schedule a
-                pickup</button>
+              <button class="btn" type="submit"><a class="text-white bthern"
+                  href="/bookOrder">Schedule a
+                  pickup</a></button>
               {% else %}
               <div class="form-login">
                 <a href="/login"><i class="fa-solid fa-user"></i> Log In</a>
@@ -201,69 +142,7 @@
               {% endif %}
 
               <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header modealsong">
-                      <h5 class="modal-title">Schedule a Pickup</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <div>
-                        <p>Your Name*</p>
-                        <input type="text" name="name" placeholder="Your Name*" required class="form-control my-2"
-                          value="{{context.name}}">
-                        <p>Phone*</p>
-                        <input type="tel" name="phone" placeholder="Your Phone Number" required class="form-control"
-                          value="{{context.phone}}">
-                        <p>Address*</p>
-                        <input type="text" name="address" placeholder="Address*" required class="form-control my-2"
-                          value="{{context.address}}">
-                        <p>Choose Product*</p>
-                        <div id="product-list">
-                          {% for pro in product %}
-                          {% for item in pro.price_json %}
-                          <div class="product-row" data-id="{{ pro.id }}" data-title="{{ pro.title }}"
-                            data-service="{{ item|jsonify }}" data-price="{{ item.price }}">
-                            <div class="product-name">{{ pro.title }}</div>
-                            <div class="quantity-controls">
-                              <button type="button" class="decrease">-</button>
-                              <span class="quantity">0</span>
-                              <button type="button" class="increase">+</button>
-                            </div>
-                            <div class="product-price">₹{{ item.price }}</div>
-                          </div>
-                          {% endfor %}
-                          {% endfor %}
-                        </div>
-                        <div class="total">
-                          Total: ₹<span id="total-price">0</span>
-                        </div>
-                        <label class="mt-3">Pickup Date</label>
-                        <input type="date" name="pickup_date" id="pickupDate" class="form-control mb-2" required>
-                        <label>Pickup Slot</label>
-                        <select name="pickup_slot" id="pickupSlot" class="form-select mb-2" required>
-                          <option value="">Select Pickup Slot</option>
-                          <option value="6:00 AM - 7:00 AM">6:00 AM - 7:00 AM</option>
-                          <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
-                          <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
-                          <option value="7:00 PM - 8:00 PM">7:00 PM - 8:00 PM</option>
-                        </select>
-                        <label>Drop Slot</label>
-                        <select name="drop_slot" id="dropSlot" class="form-select mb-2" required>
-                          <option value="">Select Drop Slot</option>
 
-                        </select>
-                        <input type="hidden" name="selected_items" id="selected-items">
-                        <input type="hidden" id="userId" value="{{ context.id }}">
-                        <button id="mysubmitbtn" class="btn btn-primary w-100 on">Order
-                          Now</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -369,7 +248,7 @@
     });
   </script>
 
-  <script>
+  <!-- <script>
     document.addEventListener("DOMContentLoaded", function () {
       // Function to initialize slot functionality for a given modal
       function initModalSlots(modalId) {
@@ -687,7 +566,7 @@
       initOrderSubmission("exampleModal");
       initOrderSubmission("exampleModaledfr");
     });
-  </script>
+  </script> -->
 </body>
 
 </html>

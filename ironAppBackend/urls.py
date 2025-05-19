@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+from frontend.views import bookOrder
 from frontend.views.terms import terms, shippingPolicy, cancellation, privacy
 from ironAppBackend import settings
 from .views import file_upload
@@ -31,6 +32,7 @@ urlpatterns = [
     # this all Website aroute inculde main website
     path('', home, name='home'),
     path("login/", login, name="login"),
+    path("bookOrder/", bookOrder.bookOrder, name="bookOrder"),
     path("register/", signup_view, name="register"),
     path("verify-otp/",verify_otp, name="verify_otp"),
     path('aboutus', aboutus, name='aboutus'),

@@ -1,0 +1,535 @@
+{% extends 'main.html' %}
+{% block title %} Book Order {% endblock %}
+{% block content %}
+{% load json_filters %}
+
+<style>
+    .page-container {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .left-column {
+        flex: 1;
+    }
+
+    .right-column {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        background-color: #fff;
+    }
+
+    #map {
+        height: 100%;
+        width: 100%;
+    }
+
+    .derffee {
+        position: relative;
+    }
+
+    .helloij {
+        padding: 200px 0px 100px 0px;
+    }
+
+    .hidht {
+        height: 550px !important;
+    }
+
+    .defrrr {
+        max-width: 100% !important;
+        margin: 0px !important;
+        width: 100%;
+        overflow: auto;
+        height: 580px;
+    }
+
+    .mapmain {
+        position: relative;
+    }
+
+    .map-child-map {
+        position: absolute;
+        bottom: 0;
+        border-radius: 10px;
+        /* height: 33px; */
+        background-color: rgba(255, 255, 255, .4);
+        padding: 10px 10px;
+        color: #000000;
+
+        z-index: 9999;
+        margin: 0px 20px 20px 20px;
+    }
+</style>
+
+<section class="helloij">
+    <!-- Right Sorm) -->
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="mapmain">
+
+                    <div id="map" class="hidht"></div>
+                    <div class="map-child-map">
+                       Address: {{context.address}}
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="right-columnsde">
+                    <div id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog defrrr">
+                            <div class="modal-content ">
+                                <div class="modal-header modealsong">
+                                    <h5 class="modal-title">Schedule a Pickup</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <p>Your Name*</p>
+                                        <input type="text" name="name" placeholder="Your Name*" required
+                                            class="form-control my-2" value="{{context.name}}">
+                                        <p>Phone*</p>
+                                        <input type="tel" name="phone" placeholder="Your Phone Number" required
+                                            class="form-control" value="{{context.phone}}">
+                                        <p>Address*</p>
+                                        <input type="text" name="address" placeholder="Address*" required
+                                            class="form-control my-2" value="{{context.address}}">
+                                        <p>Choose Product*</p>
+                                        <div id="product-list">
+                                            {% for pro in product %}
+                                            {% for item in pro.price_json %}
+                                            <div class="product-row" data-id="{{ pro.id }}" data-title="{{ pro.title }}"
+                                                data-service="{{ item|jsonify }}" data-price="{{ item.price }}">
+                                                <div class="product-name">{{ pro.title }}</div>
+                                                <div class="quantity-controls">
+                                                    <button type="button" class="decrease">-</button>
+                                                    <span class="quantity">0</span>
+                                                    <button type="button" class="increase">+</button>
+                                                </div>
+                                                <div class="product-price">₹{{ item.price }}</div>
+                                            </div>
+                                            {% endfor %}
+                                            {% endfor %}
+                                        </div>
+                                        <div class="total">
+                                            Total: ₹<span id="total-price">0</span>
+                                        </div>
+                                        <label class="mt-3">Pickup Date</label>
+                                        <input type="date" name="pickup_date" id="pickupDate" class="form-control mb-2"
+                                            required>
+                                        <label>Pickup Slot</label>
+                                        <select name="pickup_slot" id="pickupSlot" class="form-select mb-2" required>
+                                            <option value="">Select Pickup Slot</option>
+                                            <option value="6:00 AM - 7:00 AM">6:00 AM - 7:00 AM</option>
+                                            <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
+                                            <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
+                                            <option value="7:00 PM - 8:00 PM">7:00 PM - 8:00 PM</option>
+                                        </select>
+                                        <label>Drop Slot</label>
+                                        <select name="drop_slot" id="dropSlot" class="form-select mb-2" required>
+                                            <option value="">Select Drop Slot</option>
+
+                                        </select>
+                                        <input type="hidden" name="selected_items" id="selected-items">
+                                        <input type="hidden" id="userId" value="{{ context.id }}">
+                                        <button id="mysubmitbtn" class="btn btn-primary w-100 on">Order
+                                            Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Google Maps Script -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBf-7KlnwhL3qB0AnIXu4meJlKLsREu7w&callback=initMap" async
+    defer></script>
+
+<script>
+    let map, marker, geocoder;
+
+    function initMap() {
+        geocoder = new google.maps.Geocoder();
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+
+                map = new google.maps.Map(document.getElementById("map"), {
+                    center: pos,
+                    zoom: 15,
+                });
+
+                marker = new google.maps.Marker({
+                    position: pos,
+                    map: map,
+                    draggable: true,
+                });
+
+                updateLocationInfo(pos);
+
+                marker.addListener('dragend', () => {
+                    const newPos = marker.getPosition();
+                    updateLocationInfo({
+                        lat: newPos.lat(),
+                        lng: newPos.lng()
+                    });
+                });
+
+            }, () => {
+                alert("Geolocation failed or permission denied.");
+            });
+        } else {
+            alert("Browser doesn't support geolocation.");
+        }
+    }
+
+    function updateLocationInfo(latlng) {
+        document.getElementById("lat").textContent = latlng.lat;
+        document.getElementById("lng").textContent = latlng.lng;
+
+        geocoder.geocode({ location: latlng }, (results, status) => {
+            if (status === "OK" && results[0]) {
+                document.getElementById("address").textContent = results[0].formatted_address;
+            } else {
+                document.getElementById("address").textContent = "Address not found";
+            }
+        });
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to initialize slot functionality for a given modal
+        function initModalSlots(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) {
+                console.error(`Modal with ID ${modalId} not found`);
+                return;
+            }
+
+            const pickupSlotSelect = modal.querySelector("#pickupSlot");
+            const dropSlotSelect = modal.querySelector("#dropSlot");
+            const pickupDateInput = modal.querySelector("#pickupDate");
+
+            if (!pickupSlotSelect || !dropSlotSelect || !pickupDateInput) {
+                console.error(`Required elements missing in modal ${modalId}`);
+                return;
+            }
+
+            // Define pickup slots
+            const pickupSlots = [
+                "6:00 AM - 7:00 AM",
+                "9:00 AM - 10:00 AM",
+                "4:00 PM - 5:00 PM",
+                "7:00 PM - 8:00 PM",
+            ];
+
+            // Define drop slot mapping
+            const dropSlotMapping = {
+                "6:00 AM - 7:00 AM": [
+                    { time: "4:00 PM - 5:00 PM", daysLater: 0 },
+                    { time: "7:00 PM - 8:00 PM", daysLater: 0 },
+                    { time: "6:00 AM - 7:00 AM", daysLater: 1 },
+                    { time: "9:00 AM - 10:00 AM", daysLater: 1 },
+                ],
+                "9:00 AM - 10:00 AM": [
+                    { time: "7:00 PM - 8:00 PM", daysLater: 0 },
+                    { time: "6:00 AM - 7:00 AM", daysLater: 1 },
+                    { time: "9:00 AM - 10:00 AM", daysLater: 1 },
+                    { time: "4:00 PM - 5:00 PM", daysLater: 1 },
+                ],
+                "4:00 PM - 5:00 PM": [
+                    { time: "6:00 AM - 7:00 AM", daysLater: 1 },
+                    { time: "9:00 AM - 10:00 AM", daysLater: 1 },
+                    { time: "4:00 PM - 5:00 PM", daysLater: 1 },
+                    { time: "7:00 PM - 8:00 PM", daysLater: 1 },
+                ],
+                "7:00 PM - 8:00 PM": [
+                    { time: "9:00 AM - 10:00 AM", daysLater: 1 },
+                    { time: "4:00 PM - 5:00 PM", daysLater: 1 },
+                    { time: "7:00 PM - 8:00 PM", daysLater: 1 },
+                    { time: "6:00 AM - 7:00 AM", daysLater: 2 },
+                ],
+            };
+
+            // Set minimum date to today
+            function setMinDate() {
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, "0");
+                const dd = String(today.getDate()).padStart(2, "0");
+                pickupDateInput.min = `${yyyy}-${mm}-${dd}`;
+            }
+
+            // Update drop slots based on pickup selection
+            function updateDropSlots() {
+                console.log(`updateDropSlots called for ${modalId}`, {
+                    selectedPickupSlot: pickupSlotSelect.value,
+                    pickupDate: pickupDateInput.value,
+                });
+
+                // Clear existing options
+                dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
+
+                const selectedPickupSlot = pickupSlotSelect.value;
+                const pickupDate = pickupDateInput.value;
+
+                if (!selectedPickupSlot || !pickupDate) {
+                    console.log(`Missing inputs in ${modalId}:`, { selectedPickupSlot, pickupDate });
+                    return;
+                }
+
+                const dropSlots = dropSlotMapping[selectedPickupSlot];
+                if (!dropSlots) {
+                    console.error(`No drop slots for pickup slot in ${modalId}:`, selectedPickupSlot);
+                    return;
+                }
+
+                // 🛠 Fix timezone issue by using midnight time
+                const pickupDateObj = new Date(pickupDate + "T00:00:00");
+                if (isNaN(pickupDateObj)) {
+                    console.error(`Invalid pickup date in ${modalId}:`, pickupDate);
+                    return;
+                }
+
+                dropSlots.forEach((slot) => {
+                    const dropDate = new Date(pickupDateObj);
+                    dropDate.setDate(dropDate.getDate() + slot.daysLater);
+
+                    const dd = String(dropDate.getDate()).padStart(2, "0");
+                    const mm = String(dropDate.getMonth() + 1).padStart(2, "0");
+                    const yyyy = dropDate.getFullYear();
+                    const formattedDate = `${dd}/${mm}/${yyyy}`;
+
+                    const option = document.createElement("option");
+                    option.value = `${slot.time}|${dropDate.toISOString().split("T")[0]}`;
+                    option.textContent = `${slot.time} (${formattedDate})`;
+                    dropSlotSelect.appendChild(option);
+                });
+
+                console.log(`Drop slot options for ${modalId}:`, dropSlotSelect.innerHTML);
+            }
+
+
+            // Initialize slots
+            function initSlots() {
+                setMinDate();
+
+                // Add event listeners
+                pickupSlotSelect.addEventListener("change", () => {
+                    console.log(`Pickup slot changed in ${modalId}:`, pickupSlotSelect.value);
+                    updateDropSlots();
+                });
+                pickupDateInput.addEventListener("change", () => {
+                    console.log(`Pickup date changed in ${modalId}:`, pickupDateInput.value);
+                    updateDropSlots();
+                });
+
+                // Trigger update if already selected
+                if (pickupSlotSelect.value && pickupDateInput.value) {
+                    updateDropSlots();
+                }
+            }
+
+            // Initialize slots for this modal
+            initSlots();
+        }
+
+        // Initialize slots for both modals
+        initModalSlots("exampleModal");
+        initModalSlots("exampleModaledfr");
+
+        // Product quantity and total calculation for each modal
+        function initProductControls(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+
+            const rows = modal.querySelectorAll(".product-row");
+            const totalPriceEl = modal.querySelector("#total-price");
+
+            function updateTotal() {
+                let total = 0;
+                rows.forEach((row) => {
+                    const price = parseFloat(row.dataset.price);
+                    const qty = parseInt(row.querySelector(".quantity").textContent);
+                    total += price * qty;
+                });
+                totalPriceEl.textContent = total.toFixed(2);
+            }
+
+            rows.forEach((row) => {
+                const increaseBtn = row.querySelector(".increase");
+                const decreaseBtn = row.querySelector(".decrease");
+                const qtyEl = row.querySelector(".quantity");
+
+                increaseBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    qtyEl.textContent = parseInt(qtyEl.textContent) + 1;
+                    updateTotal();
+                });
+
+                decreaseBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const currentQty = parseInt(qtyEl.textContent);
+                    if (currentQty > 0) {
+                        qtyEl.textContent = currentQty - 1;
+                        updateTotal();
+                    }
+                });
+            });
+        }
+
+        initProductControls("exampleModal");
+        initProductControls("exampleModaledfr");
+
+        // Order submission for each modal
+        function initOrderSubmission(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+
+            const submitBtn = modal.querySelector("#mysubmitbtn");
+            const selectedItemsInput = modal.querySelector("#selected-items");
+            const pickupSlotSelect = modal.querySelector("#pickupSlot");
+            const dropSlotSelect = modal.querySelector("#dropSlot");
+            const pickupDateInput = modal.querySelector("#pickupDate");
+
+            async function submitData() {
+                const name = modal.querySelector("input[name='name']").value;
+                const phone = modal.querySelector("input[name='phone']").value;
+                const address = modal.querySelector("input[name='address']").value;
+                const pickupDate = pickupDateInput.value;
+                const pickupSlot = pickupSlotSelect.value;
+                const dropSlot = dropSlotSelect.value;
+                const userId = modal.querySelector("#userId").value;
+
+                if (!name || !phone || !address || !pickupDate || !pickupSlot || !dropSlot) {
+                    alert("Please fill in all required fields, including pickup and drop slots.");
+                    submitBtn.disabled = false;
+                    return;
+                }
+
+                const rows = modal.querySelectorAll(".product-row");
+                const totalPriceEl = modal.querySelector("#total-price");
+
+                // Collect selected items
+                const selectedItems = [];
+                let totalAmount = 0;
+
+                rows.forEach((row) => {
+                    const qty = parseInt(row.querySelector(".quantity").textContent);
+                    if (qty > 0) {
+                        const serviceData = row.dataset.service;
+                        const price = parseFloat(row.dataset.price);
+                        let serviceObj = {};
+
+                        try {
+                            serviceObj = JSON.parse(serviceData);
+                        } catch (err) {
+                            console.error(`Invalid service JSON in ${modalId}:`, serviceData, err);
+                            alert("Error processing product data. Please try again.");
+                            return;
+                        }
+
+                        selectedItems.push({
+                            product_id: row.dataset.id,
+                            chosed_service: serviceObj,
+                            quantity: qty,
+                        });
+
+                        totalAmount += price * qty;
+                    }
+                });
+
+                if (selectedItems.length === 0) {
+                    alert("Please select at least one product.");
+                    submitBtn.disabled = false;
+                    return;
+                }
+
+                // Populate hidden input
+                selectedItemsInput.value = JSON.stringify(selectedItems);
+
+                // Prepare payload
+                const trxId = "txn_" + Date.now();
+                const paymentType = "cash";
+
+                const payload = {
+                    userid: userId,
+                    trx_id: trxId,
+                    payment_typ: paymentType,
+                    product: selectedItems,
+                    total_booked_amount: totalAmount,
+                    iroing: false,
+                    deliverd: false,
+                    address: address,
+                    latitude: "28.6448",
+                    longitude: "77.216721",
+                    delivery_slot: dropSlot,
+                    pickup_slot: pickupSlot,
+                    pickup_date: pickupDate,
+                };
+
+                console.log(`Payload for ${modalId}:`, payload);
+
+                try {
+                    const res = await fetch("/api/create-order", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(payload),
+                    });
+
+                    const data = await res.json();
+                    if (res.ok) {
+                        alert("Order placed successfully!");
+                        // Reset form
+                        modal.querySelector("input[name='name']").value = "";
+                        modal.querySelector("input[name='phone']").value = "";
+                        modal.querySelector("input[name='address']").value = "";
+                        pickupDateInput.value = "";
+                        pickupSlotSelect.value = "";
+                        dropSlotSelect.innerHTML = '<option value="">Select Drop Slot</option>';
+                        totalPriceEl.textContent = "0";
+                        rows.forEach((row) => {
+                            row.querySelector(".quantity").textContent = "0";
+                        });
+                    } else {
+                        console.error(`API Error in ${modalId}:`, data);
+                        alert("Failed to place order: " + (data.message || "Unknown error"));
+                    }
+                } catch (err) {
+                    console.error(`Network Error in ${modalId}:`, err);
+                    alert("Network error! Please check your connection and try again.");
+                } finally {
+                    submitBtn.disabled = false;
+                }
+            }
+
+            submitBtn.addEventListener("click", () => {
+                submitBtn.disabled = true;
+                submitData();
+            });
+        }
+
+        initOrderSubmission("exampleModal");
+        initOrderSubmission("exampleModaledfr");
+    });
+</script>
+{% endblock %}
